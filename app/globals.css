@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply min-h-screen bg-slate-950 text-slate-100 antialiased transition-colors duration-300;
+  background-image:
+    radial-gradient(circle at top, rgba(59, 130, 246, 0.18), transparent 24%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(2, 6, 23, 1));
+}
+
+html.light body {
+  @apply bg-slate-100 text-slate-900;
+  background-image:
+    radial-gradient(circle at top, rgba(59, 130, 246, 0.12), transparent 28%),
+    linear-gradient(180deg, rgba(248, 250, 252, 1), rgba(226, 232, 240, 0.95));
+}
+
+::selection {
+  background: rgba(59, 130, 246, 0.28);
+}
+
+@layer components {
+  .glass-panel {
+    @apply rounded-3xl border border-white/10 bg-white/5 shadow-glow backdrop-blur-xl;
+  }
+
+  html.light .glass-panel {
+    @apply border-slate-200/70 bg-white/75;
+    box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.08), 0 24px 60px rgba(15, 23, 42, 0.1);
+  }
+
+  .primary-button {
+    @apply inline-flex items-center justify-center rounded-2xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400/70;
+  }
+
+  .secondary-button {
+    @apply inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-blue-400/40;
+  }
+
+  html.light .secondary-button {
+    @apply border-slate-200 bg-white/80 text-slate-900 hover:bg-white;
+  }
+
+  .soft-input {
+    @apply w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-400 focus:border-blue-400/60 focus:ring-2 focus:ring-blue-400/30;
+  }
+
+  html.light .soft-input {
+    @apply border-slate-200 bg-white/80 text-slate-900 placeholder:text-slate-500;
+  }
+
+}
+
+html.light .primary-button {
+  color: rgb(255 255 255);
+}
+
+html.light .glass-panel .text-white {
+  color: rgb(15 23 42);
+}
+
+html.light .glass-panel .text-slate-300 {
+  color: rgb(51 65 85);
+}
+
+html.light .glass-panel .text-slate-400 {
+  color: rgb(100 116 139);
+}
+
+html.light .glass-panel .text-blue-200 {
+  color: rgb(30 64 175);
+}
