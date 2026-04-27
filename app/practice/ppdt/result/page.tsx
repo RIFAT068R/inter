@@ -29,6 +29,7 @@ export default function PpdtResultPage() {
     saveAnalyzerInput({
       id: crypto.randomUUID(),
       createdAt: new Date().toISOString(),
+      examType: "PPDT",
       importedFromLatestWat: false,
       answers: [{ prompt: session.image.name, answer: session.story }],
     });

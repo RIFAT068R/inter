@@ -9,7 +9,11 @@ import {
   getLatestCompletedWatSession,
   saveAnalyzerInput,
   saveAnalyzerResult,
+  type AiAnalysisResult,
 } from "@/lib/storage";
+
+const DAILY_AI_LIMIT = 5;
+const AI_USAGE_KEY = "nextleader-ai-usage";
 
 export default function AnalyzerPage() {
   const router = useRouter();
@@ -19,9 +23,12 @@ export default function AnalyzerPage() {
   const [ocrProgress, setOcrProgress] = useState(0);
   const [isOcrRunning, setIsOcrRunning] = useState(false);
   const [ocrFileName, setOcrFileName] = useState("");
+  const [remainingAiUses, setRemainingAiUses] = useState(DAILY_AI_LIMIT);
+  const [isAiRunning, setIsAiRunning] = useState(false);
 
   useEffect(() => {
     const storedInput = getAnalyzerInput();
+    setRemainingAiUses(getRemainingAiUses());
 
     if (storedInput?.answers.length) {
       setAnswersText(storedInput.answers.map((entry) => entry.answer).join("\n"));
@@ -56,6 +63,7 @@ export default function AnalyzerPage() {
     saveAnalyzerInput({
       id: crypto.randomUUID(),
       createdAt: new Date().toISOString(),
+      examType: "WAT",
       answers: importedAnswers,
       importedFromLatestWat: true,
     });
@@ -113,44 +121,85 @@ export default function AnalyzerPage() {
   };
 
   const analyze = () => {
-    const answers = parseManualAnswers(answersText);
+    const resolvedInput = getResolvedAnalyzerInput(answersText);
 
     if (answersText.trim().length === 0) {
       setError("Paste at least one answer before analysis.");
       return;
     }
 
-    if (answers.length === 0) {
+    if (resolvedInput.answers.length === 0) {
       setError("No valid answers found.");
       return;
     }
 
-    const storedInput = getAnalyzerInput();
-    const fallbackInput = {
-      id: crypto.randomUUID(),
-      createdAt: new Date().toISOString(),
-      answers,
-      importedFromLatestWat: false,
-    };
-
-    const storedInputText = storedInput?.answers.map((entry) => entry.answer).join("\n");
-
-    const answersToAnalyze =
-      storedInput && answersText === storedInputText
-        ? storedInput.answers
-        : answers;
-
-    saveAnalyzerInput(
-      storedInput && answersToAnalyze === storedInput.answers
-        ? storedInput
-        : {
-            ...fallbackInput,
-            answers: answersToAnalyze,
-          },
-    );
-
-    saveAnalyzerResult(analyzeAnswers(answersToAnalyze));
+    saveAnalyzerInput(resolvedInput);
+    saveAnalyzerResult(analyzeAnswers(resolvedInput.answers, resolvedInput.examType));
     router.push("/analyzer/result");
+  };
+
+  const analyzeWithAi = async () => {
+    const resolvedInput = getResolvedAnalyzerInput(answersText);
+
+    if (answersText.trim().length === 0) {
+      setError("Paste at least one answer before analysis.");
+      return;
+    }
+
+    if (resolvedInput.answers.length === 0) {
+      setError("No valid answers found.");
+      return;
+    }
+
+    const remaining = getRemainingAiUses();
+
+    if (remaining <= 0) {
+      setError("Daily AI limit reached. Rule-based analysis is still available.");
+      setRemainingAiUses(0);
+      return;
+    }
+
+    setIsAiRunning(true);
+    setError("");
+    setStatus("Running Gemini AI deep analysis...");
+
+    try {
+      const response = await fetch("/api/analyze-ai", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          examType: resolvedInput.examType,
+          answers: resolvedInput.answers,
+        }),
+      });
+
+      const data = (await response.json()) as AiAnalysisResult | { error?: string };
+
+      if (!response.ok || !("answers" in data)) {
+        setError("error" in data && data.error ? data.error : "AI analysis failed.");
+        setStatus("Rule-based analysis remains available.");
+        return;
+      }
+
+      saveAnalyzerInput(resolvedInput);
+
+      const baseResult = analyzeAnswers(resolvedInput.answers, resolvedInput.examType);
+      saveAnalyzerResult({
+        ...baseResult,
+        aiAnalysis: data,
+      });
+
+      incrementAiUsage();
+      setRemainingAiUses(getRemainingAiUses());
+      router.push("/analyzer/result");
+    } catch {
+      setError("AI analysis failed in this session.");
+      setStatus("Rule-based analysis remains available.");
+    } finally {
+      setIsAiRunning(false);
+    }
   };
 
   return (
@@ -211,7 +260,13 @@ export default function AnalyzerPage() {
             <button type="button" className="primary-button" onClick={analyze}>
               Analyze
             </button>
+            <button type="button" className="secondary-button" onClick={analyzeWithAi} disabled={isAiRunning || remainingAiUses <= 0}>
+              {isAiRunning ? "Running AI..." : "AI Deep Analysis"}
+            </button>
           </div>
+
+          <p className="mt-4 text-sm text-slate-400">Remaining free AI uses today: {remainingAiUses}</p>
+          {remainingAiUses <= 0 ? <p className="mt-2 text-sm text-amber-300">Daily AI limit reached. Rule-based analysis only.</p> : null}
 
           {error ? <p className="mt-4 text-sm text-rose-300">{error}</p> : <p className="mt-4 text-sm text-slate-400">{status}</p>}
         </div>
@@ -224,6 +279,7 @@ export default function AnalyzerPage() {
               <p>Strong signals include help, solve, lead, inform, organize, calm, protect, support, team, action, quickly, and safely.</p>
               <p>Strong action-led answers score better than passive or fearful responses.</p>
               <p>OCR runs client-side only. Review extracted text carefully before analyzing it.</p>
+              <p>Gemini AI is optional and limited to 5 deep analyses per day on this device.</p>
               <p>This is practice feedback, not official ISSB evaluation.</p>
             </div>
           </div>
@@ -245,4 +301,76 @@ export default function AnalyzerPage() {
       </section>
     </div>
   );
+}
+
+function getResolvedAnalyzerInput(answersText: string) {
+  const answers = parseManualAnswers(answersText);
+  const storedInput = getAnalyzerInput();
+  const storedInputText = storedInput?.answers.map((entry) => entry.answer).join("\n");
+
+  if (storedInput && answersText === storedInputText) {
+    return storedInput;
+  }
+
+  return {
+    id: crypto.randomUUID(),
+    createdAt: new Date().toISOString(),
+    examType: "General Practice",
+    answers,
+    importedFromLatestWat: false,
+  };
+}
+
+function getRemainingAiUses() {
+  if (typeof window === "undefined") {
+    return DAILY_AI_LIMIT;
+  }
+
+  const today = getLocalDateKey();
+  const raw = window.localStorage.getItem(AI_USAGE_KEY);
+
+  if (!raw) {
+    return DAILY_AI_LIMIT;
+  }
+
+  try {
+    const parsed = JSON.parse(raw) as { date: string; count: number };
+
+    if (parsed.date !== today) {
+      return DAILY_AI_LIMIT;
+    }
+
+    return Math.max(0, DAILY_AI_LIMIT - parsed.count);
+  } catch {
+    return DAILY_AI_LIMIT;
+  }
+}
+
+function incrementAiUsage() {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const today = getLocalDateKey();
+  const raw = window.localStorage.getItem(AI_USAGE_KEY);
+  let nextCount = 1;
+
+  if (raw) {
+    try {
+      const parsed = JSON.parse(raw) as { date: string; count: number };
+      nextCount = parsed.date === today ? parsed.count + 1 : 1;
+    } catch {
+      nextCount = 1;
+    }
+  }
+
+  window.localStorage.setItem(AI_USAGE_KEY, JSON.stringify({ date: today, count: nextCount }));
+}
+
+function getLocalDateKey() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = `${now.getMonth() + 1}`.padStart(2, "0");
+  const day = `${now.getDate()}`.padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }

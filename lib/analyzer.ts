@@ -69,7 +69,7 @@ export function parseImportedWatAnswers(answers: AnalyzerAnswerInput[]) {
   return answers.filter((entry) => entry.answer.trim().length > 0);
 }
 
-export function analyzeAnswers(answers: AnalyzerAnswerInput[]): AnalyzerResult {
+export function analyzeAnswers(answers: AnalyzerAnswerInput[], examType = "General Practice"): AnalyzerResult {
   const analyzedAnswers = answers.map((entry) => analyzeSingleAnswer(entry));
   const leadershipIndex =
     analyzedAnswers.length === 0
@@ -94,12 +94,14 @@ export function analyzeAnswers(answers: AnalyzerAnswerInput[]): AnalyzerResult {
   return {
     id: crypto.randomUUID(),
     createdAt: new Date().toISOString(),
+    examType,
     leadershipIndex,
     strengths,
     weakAreas,
     improvementTips,
     sampleAnswerStyle: SAMPLE_STYLE,
     disclaimer: DISCLAIMER,
+    aiAnalysis: null,
     answers: analyzedAnswers,
   };
 }

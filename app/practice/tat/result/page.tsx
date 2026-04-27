@@ -44,6 +44,7 @@ export default function TatResultPage() {
     saveAnalyzerInput({
       id: crypto.randomUUID(),
       createdAt: new Date().toISOString(),
+      examType: "TAT",
       importedFromLatestWat: false,
       answers: session.answers.map((entry) => ({
         prompt: entry.image.name,

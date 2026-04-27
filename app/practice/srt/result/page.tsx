@@ -45,6 +45,7 @@ export default function SrtResultPage() {
     saveAnalyzerInput({
       id: crypto.randomUUID(),
       createdAt: new Date().toISOString(),
+      examType: "SRT",
       importedFromLatestWat: false,
       answers: session.answers.map((entry) => ({
         prompt: entry.situation,

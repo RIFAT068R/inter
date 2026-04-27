@@ -39,6 +39,7 @@ export default function WatResultPage() {
     saveAnalyzerInput({
       id: crypto.randomUUID(),
       createdAt: new Date().toISOString(),
+      examType: "WAT",
       importedFromLatestWat: true,
       answers: session.answers.map((entry) => ({
         prompt: entry.word,

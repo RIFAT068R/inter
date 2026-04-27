@@ -69,6 +69,7 @@ export type PpdtSession = {
 export type AnalyzerInput = {
   id: string;
   createdAt: string;
+  examType: string;
   answers: {
     prompt: string;
     answer: string;
@@ -76,17 +77,36 @@ export type AnalyzerInput = {
   importedFromLatestWat: boolean;
 };
 
+export type AiAnswerAnalysis = {
+  prompt: string;
+  answer: string;
+  score: number;
+  strengths: string;
+  weakness: string;
+  improvedAnswer: string;
+};
+
+export type AiAnalysisResult = {
+  examType: string;
+  leadershipIndex: number;
+  improvementTips: string[];
+  disclaimer: string;
+  answers: AiAnswerAnalysis[];
+};
+
 export type AnalyzerTrait = "Leadership" | "Confidence" | "Responsibility" | "Decision Making" | "Positivity" | "Practicality";
 
 export type AnalyzerResult = {
   id: string;
   createdAt: string;
+  examType: string;
   leadershipIndex: number;
   strengths: string[];
   weakAreas: string[];
   improvementTips: string[];
   sampleAnswerStyle: string;
   disclaimer: string;
+  aiAnalysis: AiAnalysisResult | null;
   answers: {
     prompt: string;
     answer: string;

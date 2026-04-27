@@ -46,6 +46,16 @@ export default function AnalyzerResultPage() {
     <div className="space-y-8">
       <PageHeader eyebrow="Analyzer Result" title="Practice feedback overview" subtitle="Review per-answer signals, overall leadership index, and direct next-step improvements." />
 
+      <section className="glass-panel p-6 sm:p-8">
+        <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Analysis Mode</p>
+        <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+          <p className="text-base font-medium text-white">{result.examType} | Rule-based analyzer is the default engine.</p>
+          <span className={result.aiAnalysis ? "rounded-full bg-violet-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-violet-300" : "rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-300"}>
+            {result.aiAnalysis ? "AI Deep Analysis Included" : "Rule-Based Only"}
+          </span>
+        </div>
+      </section>
+
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <StatCard label="Leadership Index" value={`${formatScore(result.leadershipIndex)}/10`} />
         <StatCard label="Answers Analyzed" value={result.answers.length.toString()} />
@@ -72,6 +82,46 @@ export default function AnalyzerResultPage() {
           <InfoPanel title="Improvement Tips" items={result.improvementTips} />
         </div>
       </section>
+
+      {result.aiAnalysis ? (
+        <>
+          <section className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="glass-panel p-6 sm:p-8">
+              <p className="text-sm uppercase tracking-[0.24em] text-slate-400">AI Deep Analysis</p>
+              <p className="mt-3 text-3xl font-semibold text-white">{formatScore(result.aiAnalysis.leadershipIndex)}/10</p>
+              <p className="mt-4 text-sm leading-6 text-slate-300">{result.aiAnalysis.disclaimer}</p>
+            </div>
+            <InfoPanel title="Top 3 AI Improvement Tips" items={result.aiAnalysis.improvementTips} />
+          </section>
+
+          <section className="glass-panel overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-white/10 text-sm">
+                <thead className="bg-white/5 text-left text-slate-300">
+                  <tr>
+                    <th className="px-5 py-4 font-medium">Prompt</th>
+                    <th className="px-5 py-4 font-medium">Score</th>
+                    <th className="px-5 py-4 font-medium">Strengths</th>
+                    <th className="px-5 py-4 font-medium">Weakness</th>
+                    <th className="px-5 py-4 font-medium">Improved Answer</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/10">
+                  {result.aiAnalysis.answers.map((entry, index) => (
+                    <tr key={`${entry.prompt}-${index}`} className="align-top">
+                      <td className="px-5 py-4 font-medium text-white">{entry.prompt}</td>
+                      <td className="px-5 py-4 text-slate-300">{entry.score}/10</td>
+                      <td className="px-5 py-4 text-slate-300">{entry.strengths}</td>
+                      <td className="px-5 py-4 text-slate-300">{entry.weakness}</td>
+                      <td className="px-5 py-4 text-slate-300">{entry.improvedAnswer}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </>
+      ) : null}
 
       <section className="glass-panel p-6 sm:p-8">
         <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Better Sample Answer Style</p>
