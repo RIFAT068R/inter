@@ -3,19 +3,42 @@ import Link from "next/link";
 const features = [
   {
     title: "Timed Practice",
-    description: "Exam-style countdowns that force fast, disciplined thinking under pressure.",
+    description: "Exam-style countdowns for fast, disciplined thinking.",
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <path d="M12 6v6l4 2" />
+        <circle cx="12" cy="12" r="8" />
+      </svg>
+    ),
   },
   {
     title: "Custom Question Sets",
-    description: "Paste your own words and build focused drills around your weak areas.",
+    description: "Build focused drills from your own practice prompts.",
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <path d="M8 6h8M8 10h8M8 14h5" />
+        <path d="M6 3h9l3 3v15H6z" />
+      </svg>
+    ),
   },
   {
     title: "Result Review",
-    description: "Track completions, skipped prompts, and answer quality after every session.",
+    description: "Review completions, skips, and answer quality quickly.",
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <path d="M4 17l5-5 3 3 6-6" />
+        <path d="M18 14v4H4V6h4" />
+      </svg>
+    ),
   },
   {
     title: "Free Forever MVP",
-    description: "A fast local-first practice experience with zero paid backend dependencies.",
+    description: "Local-first practice with zero paid backend dependence.",
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+        <path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z" />
+      </svg>
+    ),
   },
 ];
 
@@ -98,11 +121,23 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         {features.map((feature) => (
-          <article key={feature.title} className="glass-panel p-6">
-            <p className="text-lg font-semibold text-white">{feature.title}</p>
-            <p className="mt-3 text-sm leading-6 text-slate-300">{feature.description}</p>
+          <article
+            key={feature.title}
+            className="glass-panel flex min-h-[252px] flex-col p-6 transition duration-300 hover:scale-[1.02] hover:border-[#CEF17B]/30"
+          >
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#CEF17B]/10 text-[#CEF17B] shadow-[0_0_22px_rgba(206,241,123,0.08)]">
+              {feature.icon}
+            </div>
+            <p className="mt-8 text-xl font-semibold text-white">{feature.title}</p>
+            <p className="mt-3 max-w-[22ch] text-sm leading-6 text-slate-300">{feature.description}</p>
+            <div className="mt-auto pt-8 text-[#CEF17B]">
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                <path d="M5 12h14" />
+                <path d="m13 6 6 6-6 6" />
+              </svg>
+            </div>
           </article>
         ))}
       </section>
