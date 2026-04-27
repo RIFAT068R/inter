@@ -9,10 +9,11 @@ type AnalyzeRequest = {
 };
 
 export async function POST(request: Request) {
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.OPENROUTER_API_KEY;
+  const model = process.env.OPENROUTER_MODEL || "deepseek/deepseek-chat-v3-0324:free";
 
   if (!apiKey) {
-    return NextResponse.json({ error: "Gemini AI is not configured on the server." }, { status: 503 });
+    return NextResponse.json({ error: "OpenRouter AI is not configured on the server." }, { status: 503 });
   }
 
   let body: AnalyzeRequest;
@@ -46,41 +47,50 @@ export async function POST(request: Request) {
   ].join("\n");
 
   try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+        "HTTP-Referer": "https://nextleader.local",
+        "X-Title": "NextLeader",
       },
       body: JSON.stringify({
-        contents: [
+        model,
+        temperature: 0.4,
+        messages: [
+          {
+            role: "system",
+            content: "You are a leadership and psychological response coach for ISSB practice. Return JSON only.",
+          },
           {
             role: "user",
-            parts: [{ text: prompt }],
+            content: prompt,
           },
         ],
-        generationConfig: {
-          responseMimeType: "application/json",
-          temperature: 0.4,
-        },
       }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      return NextResponse.json({ error: `Gemini request failed: ${errorText}` }, { status: 502 });
+      return NextResponse.json({ error: `OpenRouter request failed: ${errorText}` }, { status: 502 });
     }
 
     const data = (await response.json()) as {
-      candidates?: { content?: { parts?: { text?: string }[] } }[];
+      choices?: {
+        message?: {
+          content?: string;
+        };
+      }[];
     };
 
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    const text = data.choices?.[0]?.message?.content;
 
     if (!text) {
-      return NextResponse.json({ error: "Gemini returned an empty response." }, { status: 502 });
+      return NextResponse.json({ error: "OpenRouter returned an empty response." }, { status: 502 });
     }
 
-    const parsed = JSON.parse(text) as {
+    const parsed = JSON.parse(extractJson(text)) as {
       examType?: string;
       leadershipIndex?: number;
       improvementTips?: string[];
@@ -112,6 +122,16 @@ export async function POST(request: Request) {
         : [],
     });
   } catch {
-    return NextResponse.json({ error: "Gemini AI analysis failed on the server." }, { status: 500 });
+    return NextResponse.json({ error: "OpenRouter AI analysis failed on the server." }, { status: 500 });
   }
+}
+
+function extractJson(text: string) {
+  const trimmed = text.trim();
+
+  if (trimmed.startsWith("```")) {
+    return trimmed.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "");
+  }
+
+  return trimmed;
 }

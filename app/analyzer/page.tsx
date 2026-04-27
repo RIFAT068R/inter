@@ -161,7 +161,7 @@ export default function AnalyzerPage() {
 
     setIsAiRunning(true);
     setError("");
-    setStatus("Running Gemini AI deep analysis...");
+    setStatus("Running AI deep analysis...");
 
     try {
       const response = await fetch("/api/analyze-ai", {
@@ -279,7 +279,7 @@ export default function AnalyzerPage() {
               <p>Strong signals include help, solve, lead, inform, organize, calm, protect, support, team, action, quickly, and safely.</p>
               <p>Strong action-led answers score better than passive or fearful responses.</p>
               <p>OCR runs client-side only. Review extracted text carefully before analyzing it.</p>
-              <p>Gemini AI is optional and limited to 5 deep analyses per day on this device.</p>
+              <p>AI deep analysis is optional and limited to 5 uses per day on this device.</p>
               <p>This is practice feedback, not official ISSB evaluation.</p>
             </div>
           </div>
