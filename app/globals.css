@@ -47,8 +47,13 @@ html.light body {
     @apply rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-lg shadow-[0_8px_30px_rgba(0,0,0,0.12)];
   }
 
-  html.light .glass-panel {
+html.light .glass-panel {
     @apply border-black/5 bg-white/60;
+  }
+
+  html.light .top-nav {
+    @apply border-black/5 bg-white/70;
+    backdrop-filter: blur(12px);
   }
 
   .primary-button {
