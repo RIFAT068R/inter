@@ -89,7 +89,7 @@ export default function PpdtPracticePage() {
               <h2 className="mt-2 text-2xl font-semibold text-white">Picture Perception and Description Test</h2>
             </div>
             <div className="countdown-chip">
-              <p className="text-xs uppercase tracking-[0.24em] text-blue-200">Countdown</p>
+              <p className="text-lime-acc text-xs uppercase tracking-[0.24em]">Countdown</p>
               <p className="mt-2 text-4xl font-semibold text-white">{secondsLeft}s</p>
             </div>
           </div>
@@ -99,8 +99,8 @@ export default function PpdtPracticePage() {
               <img src={session.image.url} alt={session.image.name} className="h-[340px] w-full rounded-[1.5rem] object-cover sm:h-[460px]" />
             </div>
           ) : (
-            <div className="subtle-panel bg-blue-500/5 transition-all duration-500">
-              <p className="text-sm uppercase tracking-[0.24em] text-blue-200">Image Hidden</p>
+            <div className="subtle-panel bg-[#CEF17B]/5 transition-all duration-500">
+              <p className="text-lime-acc text-sm uppercase tracking-[0.24em]">Image Hidden</p>
               <p className="mt-3 text-sm leading-7 text-slate-300">Write from memory now. This phase simulates the real transition from observation to response.</p>
             </div>
           )}

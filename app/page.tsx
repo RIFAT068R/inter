@@ -23,10 +23,10 @@ export default function HomePage() {
   return (
     <div className="space-y-12">
       <section className="relative overflow-hidden py-6 sm:py-10">
-        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 mx-auto h-[460px] max-w-5xl rounded-full bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.22),rgba(139,92,246,0.14),transparent_68%)] blur-3xl" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 mx-auto h-[460px] max-w-5xl rounded-full bg-[radial-gradient(circle_at_center,rgba(206,241,123,0.22),rgba(205,237,179,0.16),transparent_68%)] blur-3xl" />
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div className="space-y-8">
-            <p className="text-[11px] font-medium uppercase tracking-[0.36em] text-blue-200">NextLeader</p>
+            <p className="text-lime-acc text-[11px] font-medium uppercase tracking-[0.36em]">NextLeader</p>
             <h1 className="max-w-3xl text-4xl font-bold leading-[1.02] text-white sm:text-5xl lg:text-6xl">
               Train Like the Next Leader.
             </h1>
@@ -53,8 +53,8 @@ export default function HomePage() {
                 ["Fast review", "See what you completed, skipped, and how you responded."],
               ].map(([title, desc]) => (
                 <div key={title} className="flex items-start gap-4">
-                  <div className="mt-1 flex h-9 w-9 items-center justify-center rounded-full bg-white/8 text-blue-200">
-                    <span className="h-1.5 w-1.5 rounded-full bg-current shadow-[0_0_14px_rgba(96,165,250,0.8)]" />
+                  <div className="text-lime-acc mt-1 flex h-9 w-9 items-center justify-center rounded-full bg-white/8">
+                    <span className="h-1.5 w-1.5 rounded-full bg-current shadow-[0_0_14px_rgba(206,241,123,0.8)]" />
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-white">{title}</p>

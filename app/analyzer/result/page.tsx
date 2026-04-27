@@ -50,7 +50,7 @@ export default function AnalyzerResultPage() {
         <p className="section-kicker">Analysis Mode</p>
         <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
           <p className="text-base font-medium text-white">{result.examType} | Rule-based analyzer is the default engine.</p>
-          <span className={result.aiAnalysis ? "rounded-full bg-violet-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-violet-300" : "rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-300"}>
+          <span className={result.aiAnalysis ? "rounded-full bg-[#CEF17B]/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#CEF17B]" : "rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-300"}>
             {result.aiAnalysis ? "AI Deep Analysis Included" : "Rule-Based Only"}
           </span>
         </div>

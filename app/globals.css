@@ -12,25 +12,25 @@ html {
 
 body {
   @apply min-h-screen antialiased transition-colors duration-300;
-  background-color: #0b1220;
-  color: rgb(255 255 255);
+  background-color: #041b14;
+  color: #e6fff3;
   background-image:
-    radial-gradient(circle at 15% 0%, rgba(59, 130, 246, 0.16), transparent 28%),
-    radial-gradient(circle at 85% 10%, rgba(139, 92, 246, 0.12), transparent 24%),
-    linear-gradient(180deg, rgba(11, 18, 32, 0.98), rgba(11, 18, 32, 1));
+    radial-gradient(circle at 15% 0%, rgba(206, 241, 123, 0.12), transparent 28%),
+    radial-gradient(circle at 85% 10%, rgba(205, 237, 179, 0.08), transparent 24%),
+    linear-gradient(180deg, rgba(4, 27, 20, 0.98), rgba(4, 27, 20, 1));
 }
 
 html.light body {
   background-color: #f5f7fb;
   color: #0f172a;
   background-image:
-    radial-gradient(circle at 15% 0%, rgba(59, 130, 246, 0.14), transparent 26%),
-    radial-gradient(circle at 85% 8%, rgba(139, 92, 246, 0.1), transparent 22%),
+    radial-gradient(circle at 15% 0%, rgba(206, 241, 123, 0.14), transparent 26%),
+    radial-gradient(circle at 85% 8%, rgba(205, 237, 179, 0.12), transparent 22%),
     linear-gradient(180deg, rgba(245, 247, 251, 1), rgba(245, 247, 251, 1));
 }
 
 ::selection {
-  background: rgba(59, 130, 246, 0.28);
+  background: rgba(206, 241, 123, 0.28);
 }
 
 @layer base {
@@ -44,7 +44,9 @@ html.light body {
 
 @layer components {
   .glass-panel {
-    @apply rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-lg shadow-[0_8px_30px_rgba(0,0,0,0.12)];
+    @apply rounded-[28px] border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.12)];
+    background-color: rgba(8, 71, 52, 0.68);
+    backdrop-filter: blur(14px);
   }
 
   html.light .glass-panel {
@@ -61,11 +63,25 @@ html.light body {
   }
 
   .primary-button {
-    @apply inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400/40;
+    @apply inline-flex items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold text-slate-950 transition focus:outline-none focus:ring-2;
+    background-color: #cef17b;
+    --tw-ring-color: rgba(206, 241, 123, 0.4);
+  }
+
+  .primary-button:hover {
+    background-color: #d9f58f;
   }
 
   .secondary-button {
-    @apply inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-lg transition hover:bg-white/10 hover:shadow-[0_8px_24px_rgba(59,130,246,0.12)] focus:outline-none focus:ring-2 focus:ring-blue-400/30;
+    @apply inline-flex items-center justify-center rounded-xl border border-white/10 px-5 py-2.5 text-sm font-medium text-white transition focus:outline-none focus:ring-2;
+    background-color: rgba(8, 71, 52, 0.4);
+    backdrop-filter: blur(14px);
+    --tw-ring-color: rgba(206, 241, 123, 0.28);
+  }
+
+  .secondary-button:hover {
+    background-color: rgba(205, 237, 179, 0.08);
+    box-shadow: 0 8px 24px rgba(206, 241, 123, 0.08);
   }
 
   html.light .secondary-button {
@@ -73,7 +89,14 @@ html.light body {
   }
 
   .soft-input {
-    @apply w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none backdrop-blur-lg transition placeholder:text-slate-400 focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/20;
+    @apply w-full rounded-xl border border-white/10 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-400 focus:ring-2;
+    background-color: rgba(8, 71, 52, 0.38);
+    backdrop-filter: blur(14px);
+    --tw-ring-color: rgba(206, 241, 123, 0.18);
+  }
+
+  .soft-input:focus {
+    border-color: rgba(206, 241, 123, 0.42);
   }
 
   html.light .soft-input {
@@ -81,7 +104,8 @@ html.light body {
   }
 
   .subtle-panel {
-    @apply rounded-3xl bg-black/15 p-5;
+    @apply rounded-3xl p-5;
+    background-color: rgba(4, 27, 20, 0.18);
   }
 
   html.light .subtle-panel {
@@ -89,7 +113,8 @@ html.light body {
   }
 
   .metric-card {
-    @apply rounded-3xl bg-black/15 p-5;
+    @apply rounded-3xl p-5;
+    background-color: rgba(4, 27, 20, 0.18);
   }
 
   html.light .metric-card {
@@ -97,11 +122,12 @@ html.light body {
   }
 
   .countdown-chip {
-    @apply rounded-[24px] bg-blue-500/10 px-5 py-4 text-center;
+    @apply rounded-[24px] px-5 py-4 text-center;
+    background-color: rgba(206, 241, 123, 0.12);
   }
 
   html.light .countdown-chip {
-    @apply bg-blue-500/10;
+    background-color: rgba(206, 241, 123, 0.2);
   }
 
   .section-kicker {
@@ -135,7 +161,7 @@ html.light body {
 }
 
 html.light .primary-button {
-  color: rgb(255 255 255);
+  color: rgb(15 23 42);
 }
 
 html.light .glass-panel .text-white {
@@ -150,6 +176,10 @@ html.light .glass-panel .text-slate-400 {
   color: #475569;
 }
 
-html.light .glass-panel .text-blue-200 {
-  color: rgb(30 64 175);
+html.light .text-lime-acc {
+  color: #7b9630;
+}
+
+html:not(.light) .text-lime-acc {
+  color: #cef17b;
 }

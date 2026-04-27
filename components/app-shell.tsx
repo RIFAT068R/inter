@@ -39,7 +39,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={isActive ? "relative text-sm font-medium text-white after:absolute after:-bottom-2 after:left-1/2 after:h-1.5 after:w-1.5 after:-translate-x-1/2 after:rounded-full after:bg-blue-400 after:shadow-[0_0_18px_rgba(96,165,250,0.8)]" : "text-sm font-medium text-slate-400 transition hover:text-white"}
+                    className={isActive ? "relative text-sm font-medium text-white after:absolute after:-bottom-2 after:left-1/2 after:h-1.5 after:w-1.5 after:-translate-x-1/2 after:rounded-full after:bg-[#CEF17B] after:shadow-[0_0_18px_rgba(206,241,123,0.8)]" : "text-sm font-medium text-slate-400 transition hover:text-white"}
                   >
                     {item.label}
                   </Link>

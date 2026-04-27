@@ -10,15 +10,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#020617",
-        navy: "#081226",
-        electric: "#3b82f6",
+        deepforest: "#041B14",
+        pine: "#084734",
+        limeglow: "#CEF17B",
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(255,255,255,0.08), 0 24px 60px rgba(2,6,23,0.45)",
+        glow: "0 0 0 1px rgba(255,255,255,0.08), 0 24px 60px rgba(4,27,20,0.45)",
       },
       backgroundImage: {
-        grid: "radial-gradient(circle at top, rgba(59,130,246,0.18), transparent 28%), linear-gradient(180deg, rgba(255,255,255,0.04), transparent)",
+        grid: "radial-gradient(circle at top, rgba(206,241,123,0.12), transparent 28%), linear-gradient(180deg, rgba(255,255,255,0.04), transparent)",
       },
     },
   },

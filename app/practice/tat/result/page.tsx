@@ -86,7 +86,7 @@ export default function TatResultPage() {
               <div>
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <p className="text-lg font-semibold text-white">{entry.image.name}</p>
-                  <span className={entry.story.trim() ? "rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300" : "rounded-full bg-amber-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-amber-300"}>
+                  <span className={entry.story.trim() ? "rounded-full bg-[#CEF17B]/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#CEF17B]" : "rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-300"}>
                     {entry.story.trim() ? "Completed" : "Skipped"}
                   </span>
                 </div>

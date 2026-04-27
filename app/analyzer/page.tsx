@@ -224,7 +224,7 @@ export default function AnalyzerPage() {
                 id="ocr-upload"
                 type="file"
                 accept="image/*"
-                className="soft-input mt-4 file:mr-4 file:rounded-xl file:border-0 file:bg-blue-500 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white"
+                className="soft-input mt-4 file:mr-4 file:rounded-xl file:border-0 file:bg-[#CEF17B] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-slate-950"
                 onChange={extractTextFromImage}
                 disabled={isOcrRunning}
               />
@@ -232,12 +232,12 @@ export default function AnalyzerPage() {
 
               {isOcrRunning ? (
                 <div className="mt-4 space-y-3">
-                  <div className="flex items-center justify-between text-xs uppercase tracking-[0.18em] text-blue-200">
+                  <div className="text-lime-acc flex items-center justify-between text-xs uppercase tracking-[0.18em]">
                     <span>OCR Loading</span>
                     <span>{ocrProgress}%</span>
                   </div>
                   <div className="h-2 overflow-hidden rounded-full bg-white/10">
-                    <div className="h-full rounded-full bg-blue-500 transition-all" style={{ width: `${ocrProgress}%` }} />
+                    <div className="h-full rounded-full bg-[#CEF17B] transition-all" style={{ width: `${ocrProgress}%` }} />
                   </div>
                   <p className="text-sm text-slate-300">Processing `{ocrFileName}` locally in your browser.</p>
                 </div>
@@ -270,7 +270,7 @@ export default function AnalyzerPage() {
 
             <div className="space-y-2">
               {error ? <p className="text-sm text-rose-300">{error}</p> : <p className="text-sm text-slate-400">{status}</p>}
-              {remainingAiUses <= 0 ? <p className="text-sm text-amber-300">Daily AI limit reached. Rule-based analysis only.</p> : null}
+              {remainingAiUses <= 0 ? <p className="text-lime-acc text-sm">Daily AI limit reached. Rule-based analysis only.</p> : null}
             </div>
           </div>
         </div>

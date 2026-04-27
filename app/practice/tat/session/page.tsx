@@ -85,13 +85,13 @@ export default function TatPracticePage() {
               </h2>
             </div>
             <div className="countdown-chip">
-              <p className="text-xs uppercase tracking-[0.24em] text-blue-200">Countdown</p>
+              <p className="text-lime-acc text-xs uppercase tracking-[0.24em]">Countdown</p>
               <p className="mt-2 text-4xl font-semibold text-white">{secondsLeft}s</p>
             </div>
           </div>
 
           <div className="h-2 overflow-hidden rounded-full bg-white/10">
-            <div className="h-full rounded-full bg-blue-500 transition-all" style={{ width: `${progressPercent}%` }} />
+            <div className="h-full rounded-full bg-[#CEF17B] transition-all" style={{ width: `${progressPercent}%` }} />
           </div>
 
           <div className="subtle-panel overflow-hidden p-4">

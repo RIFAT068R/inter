@@ -96,7 +96,7 @@ export default function SrtResultPage() {
                   <td className="px-5 py-4 text-slate-300">{entry.response || <span className="text-slate-500">No response</span>}</td>
                   <td className="px-5 py-4">
                     <span
-                      className={entry.response.trim() ? "rounded-full bg-emerald-500/15 px-3 py-1 text-emerald-300" : "rounded-full bg-amber-500/15 px-3 py-1 text-amber-300"}
+                      className={entry.response.trim() ? "rounded-full bg-[#CEF17B]/15 px-3 py-1 text-[#CEF17B]" : "rounded-full bg-white/10 px-3 py-1 text-slate-300"}
                     >
                       {entry.response.trim() ? "Completed" : "Skipped"}
                     </span>

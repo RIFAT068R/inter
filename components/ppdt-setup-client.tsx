@@ -59,7 +59,7 @@ export function PpdtSetupClient() {
             id="ppdt-image"
             type="file"
             accept="image/*"
-            className="soft-input mt-4 file:mr-4 file:rounded-xl file:border-0 file:bg-blue-500 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white"
+            className="soft-input mt-4 file:mr-4 file:rounded-xl file:border-0 file:bg-[#CEF17B] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-slate-950"
             onChange={onFileSelected}
           />
 
