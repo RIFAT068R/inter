@@ -32,6 +32,29 @@ export type SrtSession = {
   answers: SrtAnswer[];
 };
 
+export type TatImage = {
+  id: string;
+  name: string;
+  url: string;
+};
+
+export type TatAnswer = {
+  index: number;
+  image: TatImage;
+  story: string;
+  status: "completed" | "skipped";
+};
+
+export type TatSession = {
+  id: string;
+  createdAt: string;
+  completedAt: string | null;
+  timerSeconds: number;
+  images: TatImage[];
+  currentIndex: number;
+  answers: TatAnswer[];
+};
+
 export type AnalyzerInput = {
   id: string;
   createdAt: string;
@@ -67,6 +90,8 @@ const HISTORY_KEY = "nextleader-wat-history";
 const CURRENT_SRT_SESSION_KEY = "nextleader-srt-current-session";
 const SRT_HISTORY_KEY = "nextleader-srt-history";
 const LAST_SRT_RESULT_KEY = "nextleader-srt-last-result";
+const CURRENT_TAT_SESSION_KEY = "nextleader-tat-current-session";
+const LAST_TAT_RESULT_KEY = "nextleader-tat-last-result";
 const LAST_ANALYZER_INPUT_KEY = "nextleader-analyzer-input";
 const LAST_ANALYZER_RESULT_KEY = "nextleader-analyzer-result";
 
@@ -104,7 +129,28 @@ export function createSrtSession(situations: string[], timerSeconds: number): Sr
   };
 }
 
+export function createTatSession(images: TatImage[], timerSeconds: number): TatSession {
+  return {
+    id: crypto.randomUUID(),
+    createdAt: new Date().toISOString(),
+    completedAt: null,
+    timerSeconds,
+    images,
+    currentIndex: 0,
+    answers: images.map((image, index) => ({
+      index,
+      image,
+      story: "",
+      status: "skipped",
+    })),
+  };
+}
+
 function canUseStorage() {
+  return typeof window !== "undefined";
+}
+
+function canUseSessionStorage() {
   return typeof window !== "undefined";
 }
 
@@ -240,6 +286,63 @@ export function getSrtHistory(): SrtSession[] {
 
   const raw = window.localStorage.getItem(SRT_HISTORY_KEY);
   return raw ? (JSON.parse(raw) as SrtSession[]) : [];
+}
+
+export function saveTatSession(session: TatSession) {
+  if (!canUseSessionStorage()) {
+    return;
+  }
+
+  window.sessionStorage.setItem(CURRENT_TAT_SESSION_KEY, JSON.stringify(session));
+}
+
+export function getCurrentTatSession(): TatSession | null {
+  if (!canUseSessionStorage()) {
+    return null;
+  }
+
+  const raw = window.sessionStorage.getItem(CURRENT_TAT_SESSION_KEY);
+  return raw ? (JSON.parse(raw) as TatSession) : null;
+}
+
+export function saveTatSessionAnswer(sessionId: string, index: number, story: string): TatSession | null {
+  const session = getCurrentTatSession();
+
+  if (!session || session.id !== sessionId) {
+    return null;
+  }
+
+  session.answers[index] = {
+    ...session.answers[index],
+    story,
+    status: story.trim() ? "completed" : "skipped",
+  };
+
+  session.currentIndex = index + 1;
+  saveTatSession(session);
+  return session;
+}
+
+export function completeTatSession(sessionId: string): TatSession | null {
+  const session = getCurrentTatSession();
+
+  if (!session || session.id !== sessionId) {
+    return null;
+  }
+
+  session.completedAt = new Date().toISOString();
+  window.sessionStorage.removeItem(CURRENT_TAT_SESSION_KEY);
+  window.sessionStorage.setItem(LAST_TAT_RESULT_KEY, JSON.stringify(session));
+  return session;
+}
+
+export function getLatestCompletedTatSession(): TatSession | null {
+  if (!canUseSessionStorage()) {
+    return null;
+  }
+
+  const raw = window.sessionStorage.getItem(LAST_TAT_RESULT_KEY);
+  return raw ? (JSON.parse(raw) as TatSession) : null;
 }
 
 export function saveAnalyzerInput(input: AnalyzerInput) {
