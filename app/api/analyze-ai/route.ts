@@ -10,7 +10,7 @@ type AnalyzeRequest = {
 
 export async function POST(request: Request) {
   const apiKey = process.env.OPENROUTER_API_KEY;
-  const model = process.env.OPENROUTER_MODEL || "deepseek/deepseek-chat-v3-0324:free";
+  const configuredModel = process.env.OPENROUTER_MODEL;
 
   if (!apiKey) {
     return NextResponse.json({ error: "OpenRouter AI is not configured on the server." }, { status: 503 });
@@ -46,48 +46,67 @@ export async function POST(request: Request) {
     `Answers: ${JSON.stringify(answers)}`,
   ].join("\n");
 
-  try {
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-        "HTTP-Referer": "https://nextleader.local",
-        "X-Title": "NextLeader",
-      },
-      body: JSON.stringify({
-        model,
-        temperature: 0.4,
-        messages: [
-          {
-            role: "system",
-            content: "You are a leadership and psychological response coach for ISSB practice. Return JSON only.",
-          },
-          {
-            role: "user",
-            content: prompt,
-          },
-        ],
-      }),
-    });
+  const fallbackModels = [
+    "openai/gpt-oss-20b:free",
+    "google/gemma-3-12b-it:free",
+    "google/gemma-3-4b-it:free",
+    "meta-llama/llama-3.2-3b-instruct:free",
+    "qwen/qwen3-next-80b-a3b-instruct:free",
+  ];
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      return NextResponse.json({ error: `OpenRouter request failed: ${errorText}` }, { status: 502 });
+  const modelsToTry = configuredModel ? [configuredModel, ...fallbackModels.filter((model) => model !== configuredModel)] : fallbackModels;
+
+  try {
+    let text = "";
+    let lastError = "";
+
+    for (const model of modelsToTry) {
+      const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+          "HTTP-Referer": "https://nextleader.local",
+          "X-Title": "NextLeader",
+        },
+        body: JSON.stringify({
+          model,
+          temperature: 0.4,
+          messages: [
+            {
+              role: "system",
+              content: "You are a leadership and psychological response coach for ISSB practice. Return JSON only.",
+            },
+            {
+              role: "user",
+              content: prompt,
+            },
+          ],
+        }),
+      });
+
+      if (!response.ok) {
+        lastError = await response.text();
+        continue;
+      }
+
+      const data = (await response.json()) as {
+        choices?: {
+          message?: {
+            content?: string;
+          };
+        }[];
+      };
+
+      text = data.choices?.[0]?.message?.content ?? "";
+
+      if (text) {
+        break;
+      }
     }
 
-    const data = (await response.json()) as {
-      choices?: {
-        message?: {
-          content?: string;
-        };
-      }[];
-    };
-
-    const text = data.choices?.[0]?.message?.content;
-
     if (!text) {
-      return NextResponse.json({ error: "OpenRouter returned an empty response." }, { status: 502 });
+      return NextResponse.json({ error: `OpenRouter request failed: ${lastError || "No supported model returned content."}` }, { status: 502 });
     }
 
     const parsed = JSON.parse(extractJson(text)) as {
