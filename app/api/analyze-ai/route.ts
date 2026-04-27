@@ -47,6 +47,7 @@ export async function POST(request: Request) {
   ].join("\n");
 
   const fallbackModels = [
+    "nvidia/nemotron-3-super-120b-a12b:free",
     "openai/gpt-oss-20b:free",
     "google/gemma-3-12b-it:free",
     "google/gemma-3-4b-it:free",
