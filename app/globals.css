@@ -21,12 +21,12 @@ body {
 }
 
 html.light body {
-  background-color: #f5f7fb;
-  color: #0f172a;
+  background-color: #f4fbf7;
+  color: #041b14;
   background-image:
-    radial-gradient(circle at 15% 0%, rgba(206, 241, 123, 0.14), transparent 26%),
-    radial-gradient(circle at 85% 8%, rgba(205, 237, 179, 0.12), transparent 22%),
-    linear-gradient(180deg, rgba(245, 247, 251, 1), rgba(245, 247, 251, 1));
+    radial-gradient(circle at 15% 0%, rgba(206, 241, 123, 0.12), transparent 26%),
+    radial-gradient(circle at 85% 8%, rgba(205, 237, 179, 0.1), transparent 22%),
+    linear-gradient(180deg, rgba(244, 251, 247, 1), rgba(244, 251, 247, 1));
 }
 
 ::selection {
@@ -52,12 +52,17 @@ html.light body {
   }
 
   html.light .glass-panel {
-    @apply border-black/5 bg-white/80 backdrop-blur-md shadow-sm;
+    border: 1px solid rgba(8, 71, 52, 0.08);
+    background-color: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 24px rgba(8, 71, 52, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.5);
   }
 
   html.light .top-nav {
-    @apply border-black/5 bg-white/80 shadow-sm;
+    border-bottom: 1px solid rgba(8, 71, 52, 0.08);
+    background-color: rgba(255, 255, 255, 0.82);
     backdrop-filter: blur(10px);
+    box-shadow: 0 8px 24px rgba(8, 71, 52, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.55);
   }
 
   .top-nav {
@@ -68,7 +73,10 @@ html.light body {
   }
 
   html.light .theme-toggle-button {
-    @apply border-black/5 bg-white/80 text-slate-700 shadow-sm hover:bg-white;
+    border: 1px solid rgba(8, 71, 52, 0.08);
+    background-color: rgba(255, 255, 255, 0.88);
+    color: #3a5f54;
+    box-shadow: 0 6px 18px rgba(8, 71, 52, 0.05);
   }
 
   .theme-toggle-button {
@@ -106,7 +114,14 @@ html.light body {
   }
 
   html.light .secondary-button {
-    @apply border-black/5 bg-white/80 text-slate-900 shadow-sm hover:bg-white;
+    border: 1px solid rgba(8, 71, 52, 0.08);
+    background-color: rgba(255, 255, 255, 0.82);
+    color: #041b14;
+    box-shadow: 0 6px 18px rgba(8, 71, 52, 0.04);
+  }
+
+  html.light .secondary-button:hover {
+    background-color: rgba(255, 255, 255, 0.94);
   }
 
   .soft-input {
@@ -121,7 +136,14 @@ html.light body {
   }
 
   html.light .soft-input {
-    @apply border-black/5 bg-white/85 text-slate-900 placeholder:text-slate-500 shadow-sm;
+    border: 1px solid rgba(8, 71, 52, 0.08);
+    background-color: rgba(255, 255, 255, 0.86);
+    color: #041b14;
+    box-shadow: 0 6px 18px rgba(8, 71, 52, 0.03);
+  }
+
+  html.light .soft-input::placeholder {
+    color: #3a5f54;
   }
 
   .subtle-panel {
@@ -130,7 +152,8 @@ html.light body {
   }
 
   html.light .subtle-panel {
-    @apply bg-white/80 shadow-sm;
+    background-color: rgba(244, 251, 247, 0.78);
+    box-shadow: 0 6px 18px rgba(8, 71, 52, 0.03);
   }
 
   .metric-card {
@@ -139,7 +162,8 @@ html.light body {
   }
 
   html.light .metric-card {
-    @apply bg-white/80 shadow-sm;
+    background-color: rgba(244, 251, 247, 0.78);
+    box-shadow: 0 6px 18px rgba(8, 71, 52, 0.03);
   }
 
   .countdown-chip {
@@ -176,7 +200,8 @@ html.light body {
   }
 
   html.light .data-table thead {
-    @apply bg-slate-900/[0.03] text-slate-600;
+    background-color: rgba(8, 71, 52, 0.03);
+    color: #3a5f54;
   }
 
 }
@@ -186,19 +211,19 @@ html.light .primary-button {
 }
 
 html.light .glass-panel .text-white {
-  color: rgb(15 23 42);
+  color: #041b14;
 }
 
 html.light .glass-panel .text-slate-300 {
-  color: #475569;
+  color: #3a5f54;
 }
 
 html.light .glass-panel .text-slate-400 {
-  color: #475569;
+  color: #3a5f54;
 }
 
 html.light .text-lime-acc {
-  color: #7b9630;
+  color: #8bab37;
 }
 
 html:not(.light) .text-lime-acc {
