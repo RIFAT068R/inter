@@ -55,6 +55,17 @@ export type TatSession = {
   answers: TatAnswer[];
 };
 
+export type PpdtSession = {
+  id: string;
+  createdAt: string;
+  completedAt: string | null;
+  image: TatImage;
+  viewingTimeSeconds: number;
+  writingTimeSeconds: number;
+  story: string;
+  status: "completed" | "skipped";
+};
+
 export type AnalyzerInput = {
   id: string;
   createdAt: string;
@@ -92,6 +103,8 @@ const SRT_HISTORY_KEY = "nextleader-srt-history";
 const LAST_SRT_RESULT_KEY = "nextleader-srt-last-result";
 const CURRENT_TAT_SESSION_KEY = "nextleader-tat-current-session";
 const LAST_TAT_RESULT_KEY = "nextleader-tat-last-result";
+const CURRENT_PPDT_SESSION_KEY = "nextleader-ppdt-current-session";
+const LAST_PPDT_RESULT_KEY = "nextleader-ppdt-last-result";
 const LAST_ANALYZER_INPUT_KEY = "nextleader-analyzer-input";
 const LAST_ANALYZER_RESULT_KEY = "nextleader-analyzer-result";
 
@@ -143,6 +156,19 @@ export function createTatSession(images: TatImage[], timerSeconds: number): TatS
       story: "",
       status: "skipped",
     })),
+  };
+}
+
+export function createPpdtSession(image: TatImage, viewingTimeSeconds: number, writingTimeSeconds: number): PpdtSession {
+  return {
+    id: crypto.randomUUID(),
+    createdAt: new Date().toISOString(),
+    completedAt: null,
+    image,
+    viewingTimeSeconds,
+    writingTimeSeconds,
+    story: "",
+    status: "skipped",
   };
 }
 
@@ -343,6 +369,58 @@ export function getLatestCompletedTatSession(): TatSession | null {
 
   const raw = window.sessionStorage.getItem(LAST_TAT_RESULT_KEY);
   return raw ? (JSON.parse(raw) as TatSession) : null;
+}
+
+export function savePpdtSession(session: PpdtSession) {
+  if (!canUseSessionStorage()) {
+    return;
+  }
+
+  window.sessionStorage.setItem(CURRENT_PPDT_SESSION_KEY, JSON.stringify(session));
+}
+
+export function getCurrentPpdtSession(): PpdtSession | null {
+  if (!canUseSessionStorage()) {
+    return null;
+  }
+
+  const raw = window.sessionStorage.getItem(CURRENT_PPDT_SESSION_KEY);
+  return raw ? (JSON.parse(raw) as PpdtSession) : null;
+}
+
+export function savePpdtStory(sessionId: string, story: string): PpdtSession | null {
+  const session = getCurrentPpdtSession();
+
+  if (!session || session.id !== sessionId) {
+    return null;
+  }
+
+  session.story = story;
+  session.status = story.trim() ? "completed" : "skipped";
+  savePpdtSession(session);
+  return session;
+}
+
+export function completePpdtSession(sessionId: string): PpdtSession | null {
+  const session = getCurrentPpdtSession();
+
+  if (!session || session.id !== sessionId) {
+    return null;
+  }
+
+  session.completedAt = new Date().toISOString();
+  window.sessionStorage.removeItem(CURRENT_PPDT_SESSION_KEY);
+  window.sessionStorage.setItem(LAST_PPDT_RESULT_KEY, JSON.stringify(session));
+  return session;
+}
+
+export function getLatestCompletedPpdtSession(): PpdtSession | null {
+  if (!canUseSessionStorage()) {
+    return null;
+  }
+
+  const raw = window.sessionStorage.getItem(LAST_PPDT_RESULT_KEY);
+  return raw ? (JSON.parse(raw) as PpdtSession) : null;
 }
 
 export function saveAnalyzerInput(input: AnalyzerInput) {

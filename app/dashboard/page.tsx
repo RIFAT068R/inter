@@ -28,10 +28,10 @@ const modules = [
     active: true,
   },
   {
-    title: "Perception Test",
-    description: "Coming soon with image recall and assessment drills.",
-    href: "#",
-    active: false,
+    title: "Picture Perception and Description Test",
+    description: "Two-phase image viewing and memory-based story writing under timed pressure.",
+    href: "/practice/ppdt",
+    active: true,
   },
 ];
 
@@ -46,7 +46,7 @@ export default function DashboardPage() {
           <div>
             <h2 className="text-2xl font-semibold text-white">Focused practice beats random repetition.</h2>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300">
-              Start with WAT, SRT, or TAT, build response speed, then run your answers through the free local analyzer for practical feedback.
+              Start with WAT, SRT, TAT, or PPDT, build response speed, then run your answers through the free local analyzer for practical feedback.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -58,6 +58,9 @@ export default function DashboardPage() {
             </Link>
             <Link href="/practice/tat" className="secondary-button">
               Launch TAT
+            </Link>
+            <Link href="/practice/ppdt" className="secondary-button">
+              Launch PPDT
             </Link>
             <Link href="/analyzer" className="secondary-button">
               Open Analyzer

@@ -4,7 +4,7 @@ import { ModuleCard } from "@/components/module-card";
 export default function PracticeSelectionPage() {
   return (
     <div className="space-y-8">
-      <PageHeader eyebrow="Practice" title="Select your practice module" subtitle="Word Reaction Test, Situation Response Test, Thematic Apperception Test, and the free Answer Analyzer are live." />
+      <PageHeader eyebrow="Practice" title="Select your practice module" subtitle="Word Reaction Test, Situation Response Test, Thematic Apperception Test, Picture Perception and Description Test, and the free Answer Analyzer are live." />
 
       <section className="grid gap-4 md:grid-cols-2">
         <ModuleCard
@@ -32,10 +32,10 @@ export default function PracticeSelectionPage() {
           active
         />
         <ModuleCard
-          title="Perception Test"
-          description="Image recall and perception training will be added in the next release cycle."
-          href="#"
-          active={false}
+          title="Picture Perception and Description Test"
+          description="Upload one image, view it briefly, then write from memory under real exam-style pressure."
+          href="/practice/ppdt"
+          active
         />
       </section>
     </div>
