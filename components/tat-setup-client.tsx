@@ -56,11 +56,11 @@ export function TatSetupClient() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <PageHeader eyebrow="TAT Setup" title="Build your Thematic Apperception Test" subtitle="Upload multiple images, preview them, set the writing timer, and start a browser-only TAT session." />
 
       <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-        <div className="glass-panel p-6 sm:p-8">
+        <div className="glass-panel p-8 sm:p-10">
           <label className="block text-sm font-medium text-white" htmlFor="tat-images">
             Upload Images
           </label>
@@ -77,7 +77,7 @@ export function TatSetupClient() {
           {images.length > 0 ? (
             <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {images.map((image, index) => (
-                <div key={image.id} className="rounded-3xl border border-white/10 bg-black/20 p-4">
+                <div key={image.id} className="subtle-panel p-4">
                   <img src={image.url} alt={image.name} className="h-44 w-full rounded-2xl object-cover" />
                   <div className="mt-3 flex items-start justify-between gap-3">
                     <div>
@@ -104,7 +104,7 @@ export function TatSetupClient() {
 
         <div className="space-y-4">
           <div className="glass-panel p-6">
-            <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Session Settings</p>
+            <p className="section-kicker">Session Settings</p>
             <label className="mt-4 block text-sm font-medium text-white" htmlFor="tat-timer">
               Writing Time Per Image (seconds)
             </label>
@@ -118,11 +118,11 @@ export function TatSetupClient() {
               onChange={(event) => setTimerSeconds(Number(event.target.value) || 240)}
             />
             <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <div className="metric-card">
                 <p className="text-slate-400">Images Ready</p>
                 <p className="mt-2 text-2xl font-semibold text-white">{imageCount}</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <div className="metric-card">
                 <p className="text-slate-400">Default Time</p>
                 <p className="mt-2 text-2xl font-semibold text-white">4 min</p>
               </div>
@@ -130,7 +130,7 @@ export function TatSetupClient() {
           </div>
 
           <div className="glass-panel p-6">
-            <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Practice Notes</p>
+            <p className="section-kicker">Practice Notes</p>
             <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-300">
               <li>Study the image, infer the situation, then write a clear story with direction.</li>
               <li>Your uploads stay temporary and are not stored on any server.</li>

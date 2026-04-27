@@ -51,11 +51,11 @@ export function WatSetupClient({ isDemo }: { isDemo: boolean }) {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <PageHeader eyebrow="WAT Setup" title="Build your Word Reaction Test" subtitle="Paste one word per line, set the countdown, and launch a realistic timed WAT session." />
 
       <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-        <div className="glass-panel p-6 sm:p-8">
+        <div className="glass-panel p-8 sm:p-10">
           <label className="block text-sm font-medium text-white" htmlFor="words">
             Words List
           </label>
@@ -71,7 +71,7 @@ export function WatSetupClient({ isDemo }: { isDemo: boolean }) {
             placeholder={`brave\ntruth\nleader\nresponsibility\nfuture`}
           />
 
-          <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <button type="button" className="secondary-button" onClick={loadSampleWords}>
               Load Sample 60 Words
             </button>
@@ -85,7 +85,7 @@ export function WatSetupClient({ isDemo }: { isDemo: boolean }) {
 
         <div className="space-y-4">
           <div className="glass-panel p-6">
-            <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Session Settings</p>
+            <p className="section-kicker">Session Settings</p>
             <label className="mt-4 block text-sm font-medium text-white" htmlFor="timer">
               Timer Per Word (seconds)
             </label>
@@ -99,11 +99,11 @@ export function WatSetupClient({ isDemo }: { isDemo: boolean }) {
               onChange={(event) => setTimerSeconds(Number(event.target.value) || 15)}
             />
             <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <div className="metric-card">
                 <p className="text-slate-400">Words Ready</p>
                 <p className="mt-2 text-2xl font-semibold text-white">{parsedWords.length}</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <div className="metric-card">
                 <p className="text-slate-400">Saved Sessions</p>
                 <p className="mt-2 text-2xl font-semibold text-white">{sessionCount}</p>
               </div>
@@ -111,7 +111,7 @@ export function WatSetupClient({ isDemo }: { isDemo: boolean }) {
           </div>
 
           <div className="glass-panel p-6">
-            <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Practice Notes</p>
+            <p className="section-kicker">Practice Notes</p>
             <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-300">
               <li>Respond instinctively and keep moving.</li>
               <li>When the timer ends, the app auto-advances to the next word.</li>

@@ -46,11 +46,11 @@ export function PpdtSetupClient() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <PageHeader eyebrow="PPDT Setup" title="Build your Picture Perception and Description Test" subtitle="Upload one image, set viewing and writing timers, and start a two-phase PPDT session with real exam-style pressure." />
 
       <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-        <div className="glass-panel p-6 sm:p-8">
+        <div className="glass-panel p-8 sm:p-10">
           <label className="block text-sm font-medium text-white" htmlFor="ppdt-image">
             Upload Image
           </label>
@@ -64,7 +64,7 @@ export function PpdtSetupClient() {
           />
 
           {image ? (
-            <div className="mt-6 rounded-3xl border border-white/10 bg-black/20 p-4">
+            <div className="mt-6 subtle-panel p-4">
               <img src={image.url} alt={image.name} className="h-72 w-full rounded-[1.5rem] object-cover" />
               <p className="mt-3 text-sm font-medium text-white">{image.name}</p>
             </div>
@@ -81,7 +81,7 @@ export function PpdtSetupClient() {
 
         <div className="space-y-4">
           <div className="glass-panel p-6">
-            <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Session Settings</p>
+            <p className="section-kicker">Session Settings</p>
             <label className="mt-4 block text-sm font-medium text-white" htmlFor="ppdt-viewing-time">
               Picture Viewing Time (seconds)
             </label>
@@ -109,11 +109,11 @@ export function PpdtSetupClient() {
             />
 
             <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <div className="metric-card">
                 <p className="text-slate-400">Viewing Default</p>
                 <p className="mt-2 text-2xl font-semibold text-white">30s</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <div className="metric-card">
                 <p className="text-slate-400">Writing Default</p>
                 <p className="mt-2 text-2xl font-semibold text-white">4 min</p>
               </div>
@@ -121,7 +121,7 @@ export function PpdtSetupClient() {
           </div>
 
           <div className="glass-panel p-6">
-            <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Practice Notes</p>
+            <p className="section-kicker">Practice Notes</p>
             <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-300">
               <li>First observe the image under strict viewing time only.</li>
               <li>Then the image disappears and writing begins immediately.</li>

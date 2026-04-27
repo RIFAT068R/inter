@@ -72,10 +72,10 @@ export default function SrtPracticePage() {
   const progressPercent = ((session.currentIndex + 1) / session.situations.length) * 100;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <PageHeader eyebrow="SRT Practice" title="Respond with calm action" subtitle="Read each situation clearly, decide quickly, and keep your answer practical under time pressure." />
 
-      <section className="glass-panel p-6 sm:p-8">
+      <section className="glass-panel p-8 sm:p-10">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
@@ -84,7 +84,7 @@ export default function SrtPracticePage() {
                 Situation {session.currentIndex + 1} of {session.situations.length}
               </h2>
             </div>
-            <div className="rounded-3xl border border-blue-400/25 bg-blue-500/10 px-6 py-4 text-center">
+            <div className="countdown-chip">
               <p className="text-xs uppercase tracking-[0.24em] text-blue-200">Countdown</p>
               <p className="mt-2 text-4xl font-semibold text-white">{secondsLeft}s</p>
             </div>
@@ -94,8 +94,8 @@ export default function SrtPracticePage() {
             <div className="h-full rounded-full bg-blue-500 transition-all" style={{ width: `${progressPercent}%` }} />
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-black/20 p-6 sm:p-8">
-            <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Situation</p>
+          <div className="subtle-panel sm:p-8">
+            <p className="section-kicker">Situation</p>
             <p className="mt-4 text-xl leading-8 text-white sm:text-2xl">{currentSituation}</p>
           </div>
 

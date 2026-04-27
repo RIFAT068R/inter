@@ -55,7 +55,7 @@ export default function TatResultPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <PageHeader eyebrow="TAT Result" title="Story review" subtitle="Review each image and story, then send your responses to the analyzer for short practical feedback." />
 
       <section className="grid gap-4 md:grid-cols-3">
@@ -80,7 +80,7 @@ export default function TatResultPage() {
 
       <section className="grid gap-4">
         {session.answers.map((entry) => (
-          <article key={entry.image.id} className="glass-panel overflow-hidden p-4 sm:p-6">
+          <article key={entry.image.id} className="glass-panel overflow-hidden p-5 sm:p-6">
             <div className="grid gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
               <img src={entry.image.url} alt={entry.image.name} className="h-64 w-full rounded-[1.5rem] object-cover" />
               <div>
@@ -103,7 +103,7 @@ export default function TatResultPage() {
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="glass-panel p-6">
-      <p className="text-sm uppercase tracking-[0.24em] text-slate-400">{label}</p>
+      <p className="section-kicker">{label}</p>
       <p className="mt-3 text-3xl font-semibold text-white">{value}</p>
     </div>
   );

@@ -11,51 +11,116 @@ html {
 }
 
 body {
-  @apply min-h-screen bg-slate-950 text-slate-100 antialiased transition-colors duration-300;
+  @apply min-h-screen antialiased transition-colors duration-300;
+  background-color: #0b1220;
+  color: rgb(255 255 255);
   background-image:
-    radial-gradient(circle at top, rgba(59, 130, 246, 0.18), transparent 24%),
-    linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(2, 6, 23, 1));
+    radial-gradient(circle at 15% 0%, rgba(59, 130, 246, 0.16), transparent 28%),
+    radial-gradient(circle at 85% 10%, rgba(139, 92, 246, 0.12), transparent 24%),
+    linear-gradient(180deg, rgba(11, 18, 32, 0.98), rgba(11, 18, 32, 1));
 }
 
 html.light body {
-  @apply bg-slate-100 text-slate-900;
+  background-color: #f5f7fb;
+  color: #0f172a;
   background-image:
-    radial-gradient(circle at top, rgba(59, 130, 246, 0.12), transparent 28%),
-    linear-gradient(180deg, rgba(248, 250, 252, 1), rgba(226, 232, 240, 0.95));
+    radial-gradient(circle at 15% 0%, rgba(59, 130, 246, 0.12), transparent 26%),
+    radial-gradient(circle at 85% 8%, rgba(139, 92, 246, 0.08), transparent 22%),
+    linear-gradient(180deg, rgba(245, 247, 251, 1), rgba(245, 247, 251, 1));
 }
 
 ::selection {
   background: rgba(59, 130, 246, 0.28);
 }
 
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply tracking-tight;
+  }
+}
+
 @layer components {
   .glass-panel {
-    @apply rounded-3xl border border-white/10 bg-white/5 shadow-glow backdrop-blur-xl;
+    @apply rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-lg shadow-[0_8px_30px_rgba(0,0,0,0.12)];
   }
 
   html.light .glass-panel {
-    @apply border-slate-200/70 bg-white/75;
-    box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.08), 0 24px 60px rgba(15, 23, 42, 0.1);
+    @apply border-black/5 bg-white/60;
   }
 
   .primary-button {
-    @apply inline-flex items-center justify-center rounded-2xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400/70;
+    @apply inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400/40;
   }
 
   .secondary-button {
-    @apply inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-blue-400/40;
+    @apply inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-lg transition hover:bg-white/10 hover:shadow-[0_8px_24px_rgba(59,130,246,0.12)] focus:outline-none focus:ring-2 focus:ring-blue-400/30;
   }
 
   html.light .secondary-button {
-    @apply border-slate-200 bg-white/80 text-slate-900 hover:bg-white;
+    @apply border-black/5 bg-white/60 text-slate-900 hover:bg-white/75;
   }
 
   .soft-input {
-    @apply w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-400 focus:border-blue-400/60 focus:ring-2 focus:ring-blue-400/30;
+    @apply w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none backdrop-blur-lg transition placeholder:text-slate-400 focus:border-blue-400/50 focus:ring-2 focus:ring-blue-400/20;
   }
 
   html.light .soft-input {
-    @apply border-slate-200 bg-white/80 text-slate-900 placeholder:text-slate-500;
+    @apply border-black/5 bg-white/70 text-slate-900 placeholder:text-slate-500;
+  }
+
+  .subtle-panel {
+    @apply rounded-3xl bg-black/15 p-5;
+  }
+
+  html.light .subtle-panel {
+    @apply bg-white/70;
+  }
+
+  .metric-card {
+    @apply rounded-3xl bg-black/15 p-5;
+  }
+
+  html.light .metric-card {
+    @apply bg-white/70;
+  }
+
+  .countdown-chip {
+    @apply rounded-[24px] bg-blue-500/10 px-5 py-4 text-center;
+  }
+
+  html.light .countdown-chip {
+    @apply bg-blue-500/10;
+  }
+
+  .section-kicker {
+    @apply text-[11px] font-medium uppercase tracking-[0.24em] text-slate-400;
+  }
+
+  .data-table {
+    @apply min-w-full text-sm;
+  }
+
+  .data-table thead {
+    @apply bg-white/5 text-left text-slate-300;
+  }
+
+  .data-table th {
+    @apply px-5 py-4 font-medium;
+  }
+
+  .data-table td {
+    @apply px-5 py-4 align-top text-slate-300;
+  }
+
+  .data-table tbody {
+    @apply divide-y divide-white/10;
+  }
+
+  html.light .data-table thead {
+    @apply bg-slate-900/[0.03] text-slate-500;
   }
 
 }
@@ -69,11 +134,11 @@ html.light .glass-panel .text-white {
 }
 
 html.light .glass-panel .text-slate-300 {
-  color: rgb(51 65 85);
+  color: #475569;
 }
 
 html.light .glass-panel .text-slate-400 {
-  color: rgb(100 116 139);
+  color: #64748b;
 }
 
 html.light .glass-panel .text-blue-200 {

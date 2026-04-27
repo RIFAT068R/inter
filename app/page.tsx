@@ -22,19 +22,19 @@ const features = [
 
 export default function HomePage() {
   return (
-    <div className="space-y-10">
+    <div className="space-y-12">
       <PageHeader eyebrow="NextLeader" title="Train Like the Next Leader" subtitle="Practice ISSB psychological tests with real exam-style timers, answer tracking, and smart feedback." />
 
-      <section className="glass-panel overflow-hidden p-8 sm:p-10">
-        <div className="grid gap-10 lg:grid-cols-[1.25fr_0.75fr] lg:items-center">
-          <div className="space-y-6">
-            <div className="inline-flex rounded-full border border-blue-400/30 bg-blue-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-blue-200">
+      <section className="glass-panel overflow-hidden p-8 sm:p-10 lg:p-12">
+        <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+          <div className="space-y-8">
+            <div className="inline-flex rounded-full bg-blue-500/10 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.24em] text-blue-200">
               Train Like the Next Leader
             </div>
-            <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <h1 className="max-w-3xl text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
               Elite ISSB practice in a focused, premium workspace.
             </h1>
-            <p className="max-w-2xl text-base leading-7 text-slate-300 sm:text-lg">
+            <p className="max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
               Build speed, clarity, and consistency with realistic timed drills designed for disciplined preparation.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
@@ -47,9 +47,9 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="glass-panel grid gap-4 p-6">
+          <div className="grid gap-4">
             <div>
-              <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Mission Profile</p>
+              <p className="section-kicker">Mission Profile</p>
               <h2 className="mt-2 text-2xl font-semibold text-white">Train with structure, not guesswork.</h2>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
@@ -58,8 +58,8 @@ export default function HomePage() {
                 ["Local Privacy", "Your progress stays in localStorage on your device."],
                 ["Fast Review", "See what you completed, skipped, and how much you wrote."],
               ].map(([title, desc]) => (
-                <div key={title} className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                  <p className="font-medium text-white">{title}</p>
+                <div key={title} className="subtle-panel">
+                  <p className="font-semibold text-white">{title}</p>
                   <p className="mt-2 text-sm leading-6 text-slate-300">{desc}</p>
                 </div>
               ))}

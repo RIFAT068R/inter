@@ -43,11 +43,11 @@ export default function AnalyzerResultPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <PageHeader eyebrow="Analyzer Result" title="Practice feedback overview" subtitle="Review per-answer signals, overall leadership index, and direct next-step improvements." />
 
       <section className="glass-panel p-6 sm:p-8">
-        <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Analysis Mode</p>
+        <p className="section-kicker">Analysis Mode</p>
         <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
           <p className="text-base font-medium text-white">{result.examType} | Rule-based analyzer is the default engine.</p>
           <span className={result.aiAnalysis ? "rounded-full bg-violet-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-violet-300" : "rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-300"}>
@@ -68,7 +68,7 @@ export default function AnalyzerResultPage() {
           <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Trait Snapshot</p>
           <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {traitAverages.map((item) => (
-              <div key={item.trait} className="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <div key={item.trait} className="metric-card p-4">
                 <p className="text-sm text-slate-400">{item.trait}</p>
                 <p className="mt-2 text-2xl font-semibold text-white">{formatScore(item.value)}/10</p>
               </div>
@@ -87,7 +87,7 @@ export default function AnalyzerResultPage() {
         <>
           <section className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
             <div className="glass-panel p-6 sm:p-8">
-              <p className="text-sm uppercase tracking-[0.24em] text-slate-400">AI Deep Analysis</p>
+              <p className="section-kicker">AI Deep Analysis</p>
               <p className="mt-3 text-3xl font-semibold text-white">{formatScore(result.aiAnalysis.leadershipIndex)}/10</p>
               <p className="mt-4 text-sm leading-6 text-slate-300">{result.aiAnalysis.disclaimer}</p>
             </div>
@@ -96,7 +96,7 @@ export default function AnalyzerResultPage() {
 
           <section className="glass-panel overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-white/10 text-sm">
+              <table className="data-table">
                 <thead className="bg-white/5 text-left text-slate-300">
                   <tr>
                     <th className="px-5 py-4 font-medium">Prompt</th>
@@ -124,7 +124,7 @@ export default function AnalyzerResultPage() {
       ) : null}
 
       <section className="glass-panel p-6 sm:p-8">
-        <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Better Sample Answer Style</p>
+        <p className="section-kicker">Better Sample Answer Style</p>
         <p className="mt-3 text-base leading-7 text-white">{result.sampleAnswerStyle}</p>
         <p className="mt-4 text-sm text-slate-400">{result.disclaimer}</p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -139,7 +139,7 @@ export default function AnalyzerResultPage() {
 
       <section className="glass-panel overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-white/10 text-sm">
+          <table className="data-table">
             <thead className="bg-white/5 text-left text-slate-300">
               <tr>
                 <th className="px-5 py-4 font-medium">Prompt</th>
@@ -176,7 +176,7 @@ export default function AnalyzerResultPage() {
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="glass-panel p-6">
-      <p className="text-sm uppercase tracking-[0.24em] text-slate-400">{label}</p>
+      <p className="section-kicker">{label}</p>
       <p className="mt-3 text-3xl font-semibold text-white">{value}</p>
     </div>
   );
@@ -185,7 +185,7 @@ function StatCard({ label, value }: { label: string; value: string }) {
 function InfoPanel({ title, items }: { title: string; items: string[] }) {
   return (
     <div className="glass-panel p-6">
-      <p className="text-sm uppercase tracking-[0.24em] text-slate-400">{title}</p>
+      <p className="section-kicker">{title}</p>
       <div className="mt-4 space-y-3 text-sm leading-6 text-slate-300">
         {items.map((item) => (
           <p key={item}>{item}</p>

@@ -3,7 +3,7 @@ import { ModuleCard } from "@/components/module-card";
 
 export default function PracticeSelectionPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <PageHeader eyebrow="Practice" title="Select your practice module" subtitle="Word Reaction Test, Situation Response Test, Thematic Apperception Test, Picture Perception and Description Test, and the free Answer Analyzer are live." />
 
       <section className="grid gap-4 md:grid-cols-2">

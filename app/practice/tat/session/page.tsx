@@ -72,10 +72,10 @@ export default function TatPracticePage() {
   const progressPercent = ((session.currentIndex + 1) / session.images.length) * 100;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <PageHeader eyebrow="TAT Practice" title="Observe, infer, and write" subtitle="Use the image as a prompt, build a coherent story quickly, and move with the timer." />
 
-      <section className="glass-panel p-6 sm:p-8">
+      <section className="glass-panel p-8 sm:p-10">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
@@ -84,7 +84,7 @@ export default function TatPracticePage() {
                 Image {session.currentIndex + 1} of {session.images.length}
               </h2>
             </div>
-            <div className="rounded-3xl border border-blue-400/25 bg-blue-500/10 px-6 py-4 text-center">
+            <div className="countdown-chip">
               <p className="text-xs uppercase tracking-[0.24em] text-blue-200">Countdown</p>
               <p className="mt-2 text-4xl font-semibold text-white">{secondsLeft}s</p>
             </div>
@@ -94,7 +94,7 @@ export default function TatPracticePage() {
             <div className="h-full rounded-full bg-blue-500 transition-all" style={{ width: `${progressPercent}%` }} />
           </div>
 
-          <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black/20 p-4">
+          <div className="subtle-panel overflow-hidden p-4">
             <img src={currentImage.url} alt={currentImage.name} className="h-[320px] w-full rounded-[1.5rem] object-cover sm:h-[420px]" />
           </div>
 

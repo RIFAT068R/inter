@@ -78,28 +78,28 @@ export default function PpdtPracticePage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <PageHeader eyebrow="PPDT Practice" title={phaseMeta.title} subtitle={phaseMeta.subtitle} />
 
-      <section className="glass-panel p-6 sm:p-8 transition-all duration-500">
+      <section className="glass-panel p-8 sm:p-10 transition-all duration-500">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="text-sm uppercase tracking-[0.24em] text-slate-400">{phaseMeta.label}</p>
               <h2 className="mt-2 text-2xl font-semibold text-white">Picture Perception and Description Test</h2>
             </div>
-            <div className="rounded-3xl border border-blue-400/25 bg-blue-500/10 px-6 py-4 text-center">
+            <div className="countdown-chip">
               <p className="text-xs uppercase tracking-[0.24em] text-blue-200">Countdown</p>
               <p className="mt-2 text-4xl font-semibold text-white">{secondsLeft}s</p>
             </div>
           </div>
 
           {phase === "viewing" ? (
-            <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black/20 p-4 transition-all duration-500">
+            <div className="subtle-panel overflow-hidden p-4 transition-all duration-500">
               <img src={session.image.url} alt={session.image.name} className="h-[340px] w-full rounded-[1.5rem] object-cover sm:h-[460px]" />
             </div>
           ) : (
-            <div className="rounded-[2rem] border border-blue-400/20 bg-blue-500/5 p-5 transition-all duration-500">
+            <div className="subtle-panel bg-blue-500/5 transition-all duration-500">
               <p className="text-sm uppercase tracking-[0.24em] text-blue-200">Image Hidden</p>
               <p className="mt-3 text-sm leading-7 text-slate-300">Write from memory now. This phase simulates the real transition from observation to response.</p>
             </div>

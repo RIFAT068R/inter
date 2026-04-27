@@ -203,16 +203,16 @@ export default function AnalyzerPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <PageHeader eyebrow="Analyzer" title="Free answer analyzer" subtitle="Run short practical feedback on your answers using local rule-based scoring. No paid API, no external backend, and no data leaves your browser." />
 
       <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-        <div className="glass-panel p-6 sm:p-8">
+        <div className="glass-panel p-8 sm:p-10">
           <label htmlFor="answers" className="block text-sm font-medium text-white">
             Answers Input
           </label>
           <p className="mt-2 text-sm text-slate-300">Paste one answer per line. Keep each line as a separate response for cleaner scoring.</p>
-          <div className="mt-4 rounded-3xl border border-white/10 bg-black/20 p-4">
+          <div className="mt-6 subtle-panel">
             <label htmlFor="ocr-upload" className="block text-sm font-medium text-white">
               Upload Answer Image
             </label>
@@ -273,7 +273,7 @@ export default function AnalyzerPage() {
 
         <div className="space-y-4">
           <div className="glass-panel p-6">
-            <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Analyzer Notes</p>
+            <p className="section-kicker">Analyzer Notes</p>
             <div className="mt-4 space-y-3 text-sm leading-6 text-slate-300">
               <p>Scoring traits: Leadership, Confidence, Responsibility, Decision Making, Positivity, and Practicality.</p>
               <p>Strong signals include help, solve, lead, inform, organize, calm, protect, support, team, action, quickly, and safely.</p>
@@ -285,13 +285,13 @@ export default function AnalyzerPage() {
           </div>
 
           <div className="glass-panel p-6">
-            <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Ready To Analyze</p>
+            <p className="section-kicker">Ready To Analyze</p>
             <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <div className="metric-card">
                 <p className="text-slate-400">Answers</p>
                 <p className="mt-2 text-2xl font-semibold text-white">{parsedAnswers.length}</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <div className="metric-card">
                 <p className="text-slate-400">Mode</p>
                 <p className="mt-2 text-lg font-semibold text-white">Free Local</p>
               </div>

@@ -37,7 +37,7 @@ export default function PpdtResultPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <PageHeader eyebrow="PPDT Result" title="Perception review" subtitle="Review the original image and your written story, then send the response to the analyzer for quick local feedback." />
 
       <section className="grid gap-4 md:grid-cols-3">
@@ -76,7 +76,7 @@ export default function PpdtResultPage() {
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="glass-panel p-6">
-      <p className="text-sm uppercase tracking-[0.24em] text-slate-400">{label}</p>
+      <p className="section-kicker">{label}</p>
       <p className="mt-3 text-3xl font-semibold text-white">{value}</p>
     </div>
   );

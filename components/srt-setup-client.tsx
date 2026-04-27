@@ -45,11 +45,11 @@ export function SrtSetupClient() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <PageHeader eyebrow="SRT Setup" title="Build your Situation Response Test" subtitle="Paste one situation per line, set the timer, and launch a realistic SRT session." />
 
       <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-        <div className="glass-panel p-6 sm:p-8">
+        <div className="glass-panel p-8 sm:p-10">
           <label className="block text-sm font-medium text-white" htmlFor="situations">
             Situations List
           </label>
@@ -65,7 +65,7 @@ export function SrtSetupClient() {
             placeholder={`You see a friend panic before a test. What do you do?\nYour team loses direction during a task. How do you respond?`}
           />
 
-          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <button type="button" className="secondary-button" onClick={loadSampleSituations}>
               Load Sample Situations
             </button>
@@ -79,7 +79,7 @@ export function SrtSetupClient() {
 
         <div className="space-y-4">
           <div className="glass-panel p-6">
-            <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Session Settings</p>
+            <p className="section-kicker">Session Settings</p>
             <label className="mt-4 block text-sm font-medium text-white" htmlFor="timer">
               Timer Per Situation (seconds)
             </label>
@@ -93,11 +93,11 @@ export function SrtSetupClient() {
               onChange={(event) => setTimerSeconds(Number(event.target.value) || 30)}
             />
             <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <div className="metric-card">
                 <p className="text-slate-400">Situations Ready</p>
                 <p className="mt-2 text-2xl font-semibold text-white">{parsedSituations.length}</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <div className="metric-card">
                 <p className="text-slate-400">Saved Sessions</p>
                 <p className="mt-2 text-2xl font-semibold text-white">{sessionCount}</p>
               </div>
@@ -105,7 +105,7 @@ export function SrtSetupClient() {
           </div>
 
           <div className="glass-panel p-6">
-            <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Practice Notes</p>
+            <p className="section-kicker">Practice Notes</p>
             <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-300">
               <li>Respond with calm, useful action and clear responsibility.</li>
               <li>When the timer ends, the app auto-advances to the next situation.</li>

@@ -72,10 +72,10 @@ export default function WatPracticePage() {
   const progressPercent = ((session.currentIndex + 1) / session.words.length) * 100;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <PageHeader eyebrow="WAT Practice" title="Stay sharp and keep moving" subtitle="Answer instinctively before the timer ends. The next word appears automatically when time runs out." />
 
-      <section className="glass-panel p-6 sm:p-8">
+      <section className="glass-panel p-8 sm:p-10">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
@@ -84,7 +84,7 @@ export default function WatPracticePage() {
                 Word {session.currentIndex + 1} of {session.words.length}
               </h2>
             </div>
-            <div className="rounded-3xl border border-blue-400/25 bg-blue-500/10 px-6 py-4 text-center">
+            <div className="countdown-chip">
               <p className="text-xs uppercase tracking-[0.24em] text-blue-200">Countdown</p>
               <p className="mt-2 text-4xl font-semibold text-white">{secondsLeft}s</p>
             </div>
@@ -94,7 +94,7 @@ export default function WatPracticePage() {
             <div className="h-full rounded-full bg-blue-500 transition-all" style={{ width: `${progressPercent}%` }} />
           </div>
 
-          <div className="flex min-h-[220px] items-center justify-center rounded-[2rem] border border-white/10 bg-black/20 p-6 text-center">
+          <div className="subtle-panel flex min-h-[220px] items-center justify-center text-center">
             <p className="text-4xl font-semibold uppercase tracking-[0.18em] text-white sm:text-5xl">{currentWord}</p>
           </div>
 

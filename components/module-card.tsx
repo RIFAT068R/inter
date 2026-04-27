@@ -12,18 +12,18 @@ export function ModuleCard({
   active: boolean;
 }) {
   return (
-    <article className="glass-panel p-6">
+    <article className="glass-panel p-6 sm:p-7">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xl font-semibold text-white">{title}</p>
-          <p className="mt-3 text-sm leading-6 text-slate-300">{description}</p>
+          <p className="mt-3 max-w-md text-sm leading-6 text-slate-300">{description}</p>
         </div>
-        <span className={active ? "rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300" : "rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-300"}>
+        <span className={active ? "rounded-full bg-emerald-500/15 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-emerald-300" : "rounded-full bg-white/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-slate-300"}>
           {active ? "Active" : "Coming Soon"}
         </span>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-8">
         {active ? (
           <Link href={href} className="primary-button">
             Open Module

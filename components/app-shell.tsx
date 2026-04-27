@@ -17,14 +17,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 bg-grid" />
-      <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-4 sm:px-6 lg:px-8">
-        <header className="glass-panel sticky top-4 z-30 mb-6 px-4 py-4 sm:px-6">
+      <div className="pointer-events-none absolute inset-0 bg-grid opacity-50" />
+      <div className="relative mx-auto flex min-h-screen w-full max-w-[1200px] flex-col px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+        <header className="glass-panel sticky top-4 z-30 mb-8 px-5 py-4 sm:px-6">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-center justify-between gap-4">
-              <Link href="/" className="flex flex-col">
-                <span className="text-lg font-semibold text-white">NextLeader</span>
-                <span className="text-xs uppercase tracking-[0.24em] text-slate-400">Train Like the Next Leader</span>
+              <Link href="/" className="space-y-1">
+                <span className="block text-lg font-semibold text-white">NextLeader</span>
+                <span className="block text-[11px] uppercase tracking-[0.24em] text-slate-400">Train Like the Next Leader</span>
               </Link>
               <div className="lg:hidden">
                 <ThemeToggle />
@@ -39,7 +39,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={isActive ? "rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white" : "rounded-full px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"}
+                    className={isActive ? "rounded-xl bg-white/10 px-4 py-2 text-sm font-medium text-white" : "rounded-xl px-4 py-2 text-sm font-medium text-slate-400 transition hover:bg-white/5 hover:text-white"}
                   >
                     {item.label}
                   </Link>
@@ -53,7 +53,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </header>
 
-        <main className="flex-1 pb-8">{children}</main>
+        <main className="flex-1 pb-10">{children}</main>
       </div>
     </div>
   );

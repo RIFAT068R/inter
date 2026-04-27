@@ -56,7 +56,7 @@ export default function SrtResultPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <PageHeader eyebrow="SRT Result" title="Situation review" subtitle="Check what you completed, what you skipped, and send your responses to the analyzer for quick rule-based feedback." />
 
       <section className="grid gap-4 md:grid-cols-3">
@@ -81,7 +81,7 @@ export default function SrtResultPage() {
 
       <section className="glass-panel overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-white/10 text-sm">
+          <table className="data-table">
             <thead className="bg-white/5 text-left text-slate-300">
               <tr>
                 <th className="px-5 py-4 font-medium">Situation</th>
@@ -114,7 +114,7 @@ export default function SrtResultPage() {
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="glass-panel p-6">
-      <p className="text-sm uppercase tracking-[0.24em] text-slate-400">{label}</p>
+      <p className="section-kicker">{label}</p>
       <p className="mt-3 text-3xl font-semibold text-white">{value}</p>
     </div>
   );
