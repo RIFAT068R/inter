@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { PageHeader } from "@/components/page-header";
-import { analyzeAnswers, parseManualAnswers } from "@/lib/analyzer";
+import { analyzeAnswers, parseImportedWatAnswers, parseManualAnswers } from "@/lib/analyzer";
 import {
   getAnalyzerInput,
   getLatestCompletedWatSession,
@@ -38,10 +38,17 @@ export default function AnalyzerPage() {
       return;
     }
 
-    const importedAnswers = latestSession.answers.map((entry) => ({
-      prompt: entry.word,
-      answer: entry.answer,
-    }));
+    const importedAnswers = parseImportedWatAnswers(
+      latestSession.answers.map((entry) => ({
+        prompt: entry.word,
+        answer: entry.answer,
+      })),
+    );
+
+    if (importedAnswers.length === 0) {
+      setError("Latest WAT result has no completed answers to analyze.");
+      return;
+    }
 
     saveAnalyzerInput({
       id: crypto.randomUUID(),
@@ -98,7 +105,7 @@ export default function AnalyzerPage() {
 
   return (
     <div className="space-y-8">
-      <PageHeader eyebrow="Analyzer" title="Free answer analyzer" subtitle="Run short practical feedback on your answers using local rule-based scoring. No paid API and no external backend." />
+      <PageHeader eyebrow="Analyzer" title="Free answer analyzer" subtitle="Run short practical feedback on your answers using local rule-based scoring. No paid API, no external backend, and no data leaves your browser." />
 
       <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="glass-panel p-6 sm:p-8">
@@ -135,6 +142,7 @@ export default function AnalyzerPage() {
             <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Analyzer Notes</p>
             <div className="mt-4 space-y-3 text-sm leading-6 text-slate-300">
               <p>Scoring traits: Leadership, Confidence, Responsibility, Decision Making, Positivity, and Practicality.</p>
+              <p>Strong signals include help, solve, lead, inform, organize, calm, protect, support, team, action, quickly, and safely.</p>
               <p>Strong action-led answers score better than passive or fearful responses.</p>
               <p>This is practice feedback, not official ISSB evaluation.</p>
             </div>

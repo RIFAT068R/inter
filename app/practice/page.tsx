@@ -4,7 +4,7 @@ import { ModuleCard } from "@/components/module-card";
 export default function PracticeSelectionPage() {
   return (
     <div className="space-y-8">
-      <PageHeader eyebrow="Practice" title="Select your practice module" subtitle="Only Word Reaction Test is live in this MVP. The rest of the ISSB modules are staged for later rollout." />
+      <PageHeader eyebrow="Practice" title="Select your practice module" subtitle="Word Reaction Test, Situation Response Test, and the free Answer Analyzer are live. The rest of the ISSB modules are staged for later rollout." />
 
       <section className="grid gap-4 md:grid-cols-2">
         <ModuleCard
@@ -14,10 +14,16 @@ export default function PracticeSelectionPage() {
           active
         />
         <ModuleCard
+          title="Answer Analyzer"
+          description="Paste answers or import your latest WAT result for free rule-based leadership feedback."
+          href="/analyzer"
+          active
+        />
+        <ModuleCard
           title="Situation Response Test"
           description="Timed situational judgement practice tailored for ISSB preparation."
-          href="#"
-          active={false}
+          href="/practice/srt"
+          active
         />
         <ModuleCard
           title="Story Writing Test"

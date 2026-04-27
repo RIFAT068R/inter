@@ -1,4 +1,4 @@
-import type { AnalyzerResult } from "@/lib/storage";
+import type { AnalyzerResult, AnalyzerTrait } from "@/lib/storage";
 
 const TRAITS = [
   "Leadership",
@@ -9,7 +9,7 @@ const TRAITS = [
   "Practicality",
 ] as const;
 
-type Trait = (typeof TRAITS)[number];
+type Trait = AnalyzerTrait;
 
 type AnalyzerAnswerInput = {
   prompt: string;
@@ -63,6 +63,10 @@ export function parseManualAnswers(text: string) {
       prompt: `Answer ${index + 1}`,
       answer,
     }));
+}
+
+export function parseImportedWatAnswers(answers: AnalyzerAnswerInput[]) {
+  return answers.filter((entry) => entry.answer.trim().length > 0);
 }
 
 export function analyzeAnswers(answers: AnalyzerAnswerInput[]): AnalyzerResult {

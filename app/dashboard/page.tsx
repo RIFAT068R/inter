@@ -4,6 +4,12 @@ import { ModuleCard } from "@/components/module-card";
 
 const modules = [
   {
+    title: "Answer Analyzer",
+    description: "Free local scoring for leadership, confidence, responsibility, decision making, positivity, and practicality.",
+    href: "/analyzer",
+    active: true,
+  },
+  {
     title: "Word Reaction Test",
     description: "Timed word prompts with response tracking and quick review.",
     href: "/practice/wat",
@@ -12,8 +18,8 @@ const modules = [
   {
     title: "Situation Response Test",
     description: "Scenario-based decision training with timed written responses.",
-    href: "#",
-    active: false,
+    href: "/practice/srt",
+    active: true,
   },
   {
     title: "Story Writing Test",
@@ -40,12 +46,20 @@ export default function DashboardPage() {
           <div>
             <h2 className="text-2xl font-semibold text-white">Focused practice beats random repetition.</h2>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300">
-              Start with WAT, build response speed, and return to the dashboard to continue your training cycle.
+              Start with WAT or SRT, build response speed, then run your answers through the free local analyzer for practical feedback.
             </p>
           </div>
-          <Link href="/practice/wat" className="primary-button">
-            Launch WAT
-          </Link>
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <Link href="/practice/wat" className="primary-button">
+              Launch WAT
+            </Link>
+            <Link href="/practice/srt" className="secondary-button">
+              Launch SRT
+            </Link>
+            <Link href="/analyzer" className="secondary-button">
+              Open Analyzer
+            </Link>
+          </div>
         </div>
       </section>
 
