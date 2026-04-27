@@ -56,7 +56,7 @@ export default function SrtResultPage() {
   };
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-14">
       <PageHeader eyebrow="SRT Result" title="Situation review" subtitle="Check what you completed, what you skipped, and send your responses to the analyzer for quick rule-based feedback." />
 
       <section className="grid gap-4 md:grid-cols-3">

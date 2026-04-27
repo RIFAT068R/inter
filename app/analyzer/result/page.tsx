@@ -43,7 +43,7 @@ export default function AnalyzerResultPage() {
   }
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-14">
       <PageHeader eyebrow="Analyzer Result" title="Practice feedback overview" subtitle="Review per-answer signals, overall leadership index, and direct next-step improvements." />
 
       <section className="glass-panel p-6 sm:p-8">

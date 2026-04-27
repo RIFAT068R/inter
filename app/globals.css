@@ -44,7 +44,7 @@ html.light body {
 
 @layer components {
   .glass-panel {
-    @apply rounded-[28px];
+    @apply rounded-2xl transition duration-300;
     border: 1px solid rgba(206, 241, 123, 0.15);
     background-color: rgba(8, 71, 52, 0.45);
     backdrop-filter: blur(20px);
@@ -147,7 +147,7 @@ html.light body {
   }
 
   .subtle-panel {
-    @apply rounded-3xl p-5;
+    @apply rounded-2xl p-6 transition duration-300;
     background-color: rgba(8, 71, 52, 0.18);
   }
 
@@ -157,7 +157,7 @@ html.light body {
   }
 
   .metric-card {
-    @apply rounded-3xl p-5;
+    @apply rounded-2xl p-6 transition duration-300;
     background-color: rgba(8, 71, 52, 0.18);
   }
 
@@ -167,7 +167,7 @@ html.light body {
   }
 
   .countdown-chip {
-    @apply rounded-[24px] px-5 py-4 text-center;
+    @apply rounded-2xl px-5 py-4 text-center transition duration-300;
     background-color: rgba(206, 241, 123, 0.12);
   }
 

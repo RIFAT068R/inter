@@ -78,10 +78,10 @@ export default function PpdtPracticePage() {
   }
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-14">
       <PageHeader eyebrow="PPDT Practice" title={phaseMeta.title} subtitle={phaseMeta.subtitle} />
 
-      <section className="glass-panel p-8 sm:p-10 transition-all duration-500">
+      <section className="glass-panel p-6 sm:p-8 transition-all duration-300">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
@@ -95,11 +95,11 @@ export default function PpdtPracticePage() {
           </div>
 
           {phase === "viewing" ? (
-            <div className="subtle-panel overflow-hidden p-4 transition-all duration-500">
+            <div className="subtle-panel overflow-hidden p-4 transition-all duration-300">
               <img src={session.image.url} alt={session.image.name} className="h-[340px] w-full rounded-[1.5rem] object-cover sm:h-[460px]" />
             </div>
           ) : (
-            <div className="subtle-panel bg-[#CEF17B]/5 transition-all duration-500">
+            <div className="subtle-panel bg-[#CEF17B]/5 transition-all duration-300">
               <p className="text-lime-acc text-sm uppercase tracking-[0.24em]">Image Hidden</p>
               <p className="mt-3 text-sm leading-7 text-slate-300">Write from memory now. This phase simulates the real transition from observation to response.</p>
             </div>

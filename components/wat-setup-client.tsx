@@ -51,11 +51,11 @@ export function WatSetupClient({ isDemo }: { isDemo: boolean }) {
   };
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-14">
       <PageHeader eyebrow="WAT Setup" title="Build your Word Reaction Test" subtitle="Paste one word per line, set the countdown, and launch a realistic timed WAT session." />
 
       <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-        <div className="glass-panel p-8 sm:p-10">
+        <div className="glass-panel p-6 sm:p-8">
           <label className="block text-sm font-medium text-white" htmlFor="words">
             Words List
           </label>

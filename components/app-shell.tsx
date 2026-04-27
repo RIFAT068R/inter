@@ -19,7 +19,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <div className="relative min-h-screen overflow-hidden">
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-50" />
       <div className="relative mx-auto flex min-h-screen w-full max-w-[1200px] flex-col px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-        <header className="top-nav sticky top-4 z-30 mb-8 h-16 rounded-[24px] px-4 sm:px-5 lg:px-6">
+        <header className="top-nav sticky top-4 z-30 mb-10 h-16 rounded-2xl px-4 sm:px-5 lg:px-6">
           <div className="mx-auto flex h-full items-center justify-between gap-4">
             <div className="flex min-w-0 items-center gap-4">
               <Link href="/" className="min-w-0 leading-none">

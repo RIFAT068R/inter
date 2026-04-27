@@ -72,10 +72,10 @@ export default function TatPracticePage() {
   const progressPercent = ((session.currentIndex + 1) / session.images.length) * 100;
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-14">
       <PageHeader eyebrow="TAT Practice" title="Observe, infer, and write" subtitle="Use the image as a prompt, build a coherent story quickly, and move with the timer." />
 
-      <section className="glass-panel p-8 sm:p-10">
+      <section className="glass-panel p-6 sm:p-8">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>

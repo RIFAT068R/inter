@@ -12,7 +12,7 @@ export function ModuleCard({
   active: boolean;
 }) {
   return (
-    <article className="glass-panel p-7 sm:p-8">
+    <article className="glass-panel p-6 sm:p-8">
       <div>
         <p className="text-xl font-semibold text-white">{title}</p>
         <p className="mt-3 max-w-md line-clamp-1 text-sm text-slate-300">{description}</p>

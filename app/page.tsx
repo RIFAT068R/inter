@@ -44,7 +44,7 @@ const features = [
 
 export default function HomePage() {
   return (
-    <div className="space-y-12">
+    <div className="space-y-16">
       <section className="relative overflow-hidden py-8 sm:py-12">
         <div className="pointer-events-none absolute left-0 top-8 -z-10 h-[360px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(206,241,123,0.14),transparent_72%)] blur-3xl" />
         <div className="pointer-events-none absolute right-[8%] top-8 -z-10 h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(206,241,123,0.18)_0%,rgba(115,163,78,0.1)_38%,rgba(4,27,20,0)_72%)] blur-2xl" />
@@ -73,7 +73,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="glass-panel p-7 sm:p-8 lg:p-9">
+          <div className="glass-panel p-6 sm:p-8">
             <div className="flex items-center gap-3">
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#CEF17B]/10 text-[#CEF17B]">
                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">

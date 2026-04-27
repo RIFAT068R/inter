@@ -37,7 +37,7 @@ export default function PpdtResultPage() {
   };
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-14">
       <PageHeader eyebrow="PPDT Result" title="Perception review" subtitle="Review the original image and your written story, then send the response to the analyzer for quick local feedback." />
 
       <section className="grid gap-4 md:grid-cols-3">

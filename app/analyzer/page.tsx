@@ -203,11 +203,11 @@ export default function AnalyzerPage() {
   };
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-14">
       <PageHeader eyebrow="Analyzer" title="Free answer analyzer" subtitle="Run short practical feedback on your answers using local rule-based scoring. No paid API, no external backend, and no data leaves your browser." />
 
       <section className="grid gap-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(300px,0.65fr)] lg:items-start">
-        <div className="glass-panel p-8 sm:p-10">
+        <div className="glass-panel p-6 sm:p-8">
           <div className="space-y-8">
             <div>
               <label htmlFor="answers" className="block text-sm font-medium text-white">
