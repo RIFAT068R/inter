@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { PageHeader } from "@/components/page-header";
 
 const features = [
   {
@@ -23,21 +22,18 @@ const features = [
 export default function HomePage() {
   return (
     <div className="space-y-12">
-      <PageHeader eyebrow="NextLeader" title="Train Like the Next Leader" subtitle="Practice ISSB psychological tests with real exam-style timers, answer tracking, and smart feedback." />
-
-      <section className="glass-panel overflow-hidden p-8 sm:p-10 lg:p-12">
-        <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+      <section className="relative overflow-hidden py-6 sm:py-10">
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 mx-auto h-[460px] max-w-5xl rounded-full bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.22),rgba(139,92,246,0.14),transparent_68%)] blur-3xl" />
+        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div className="space-y-8">
-            <div className="inline-flex rounded-full bg-blue-500/10 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.24em] text-blue-200">
-              Train Like the Next Leader
-            </div>
-            <h1 className="max-w-3xl text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
-              Elite ISSB practice in a focused, premium workspace.
+            <p className="text-[11px] font-medium uppercase tracking-[0.36em] text-blue-200">NextLeader</p>
+            <h1 className="max-w-3xl text-4xl font-bold leading-[1.02] text-white sm:text-5xl lg:text-6xl">
+              Train Like the Next Leader.
             </h1>
-            <p className="max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
-              Build speed, clarity, and consistency with realistic timed drills designed for disciplined preparation.
+            <p className="max-w-xl text-base leading-8 text-slate-300 sm:text-lg">
+              Practice ISSB psychological tests with real timers, clear tracking, and focused feedback.
             </p>
-            <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <Link href="/practice" className="primary-button">
                 Start Practice
               </Link>
@@ -47,20 +43,23 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="grid gap-4">
-            <div>
-              <p className="section-kicker">Mission Profile</p>
-              <h2 className="mt-2 text-2xl font-semibold text-white">Train with structure, not guesswork.</h2>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+          <div className="glass-panel p-7 sm:p-8 lg:p-9">
+            <p className="section-kicker">Mission Profile</p>
+            <h2 className="mt-3 text-2xl font-semibold text-white">Train with structure, not guesswork.</h2>
+            <div className="mt-8 space-y-5">
               {[
-                ["Real Timers", "15-second WAT flow that mirrors exam pressure."],
-                ["Local Privacy", "Your progress stays in localStorage on your device."],
-                ["Fast Review", "See what you completed, skipped, and how much you wrote."],
+                ["Real timers", "Stay sharp under real exam-style countdown pressure."],
+                ["Local privacy", "Your sessions remain stored only in your browser."],
+                ["Fast review", "See what you completed, skipped, and how you responded."],
               ].map(([title, desc]) => (
-                <div key={title} className="subtle-panel">
-                  <p className="font-semibold text-white">{title}</p>
-                  <p className="mt-2 text-sm leading-6 text-slate-300">{desc}</p>
+                <div key={title} className="flex items-start gap-4">
+                  <div className="mt-1 flex h-9 w-9 items-center justify-center rounded-full bg-white/8 text-blue-200">
+                    <span className="h-1.5 w-1.5 rounded-full bg-current shadow-[0_0_14px_rgba(96,165,250,0.8)]" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-white">{title}</p>
+                    <p className="mt-1 text-sm leading-6 text-slate-300">{desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
