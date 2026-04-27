@@ -206,95 +206,92 @@ export default function AnalyzerPage() {
     <div className="space-y-10">
       <PageHeader eyebrow="Analyzer" title="Free answer analyzer" subtitle="Run short practical feedback on your answers using local rule-based scoring. No paid API, no external backend, and no data leaves your browser." />
 
-      <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+      <section className="grid gap-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(300px,0.65fr)] lg:items-start">
         <div className="glass-panel p-8 sm:p-10">
-          <label htmlFor="answers" className="block text-sm font-medium text-white">
-            Answers Input
-          </label>
-          <p className="mt-2 text-sm text-slate-300">Paste one answer per line. Keep each line as a separate response for cleaner scoring.</p>
-          <div className="mt-6 subtle-panel">
-            <label htmlFor="ocr-upload" className="block text-sm font-medium text-white">
-              Upload Answer Image
-            </label>
-            <p className="mt-2 text-sm text-slate-300">Upload a handwritten or printed answer sheet image to extract text in your browser.</p>
-            <input
-              id="ocr-upload"
-              type="file"
-              accept="image/*"
-              className="soft-input mt-4 file:mr-4 file:rounded-xl file:border-0 file:bg-blue-500 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white"
-              onChange={extractTextFromImage}
-              disabled={isOcrRunning}
+          <div className="space-y-8">
+            <div>
+              <label htmlFor="answers" className="block text-sm font-medium text-white">
+                Answers Input
+              </label>
+              <p className="mt-2 text-sm text-slate-300">Paste one answer per line or extract text from an image before analysis.</p>
+            </div>
+
+            <div>
+              <label htmlFor="ocr-upload" className="block text-sm font-medium text-white">
+                Upload Answer Image
+              </label>
+              <input
+                id="ocr-upload"
+                type="file"
+                accept="image/*"
+                className="soft-input mt-4 file:mr-4 file:rounded-xl file:border-0 file:bg-blue-500 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white"
+                onChange={extractTextFromImage}
+                disabled={isOcrRunning}
+              />
+              <p className="mt-3 text-xs leading-6 text-slate-400">OCR may make mistakes. Please review before analysis.</p>
+
+              {isOcrRunning ? (
+                <div className="mt-4 space-y-3">
+                  <div className="flex items-center justify-between text-xs uppercase tracking-[0.18em] text-blue-200">
+                    <span>OCR Loading</span>
+                    <span>{ocrProgress}%</span>
+                  </div>
+                  <div className="h-2 overflow-hidden rounded-full bg-white/10">
+                    <div className="h-full rounded-full bg-blue-500 transition-all" style={{ width: `${ocrProgress}%` }} />
+                  </div>
+                  <p className="text-sm text-slate-300">Processing `{ocrFileName}` locally in your browser.</p>
+                </div>
+              ) : null}
+            </div>
+
+            <textarea
+              id="answers"
+              className="soft-input min-h-[420px] resize-y"
+              value={answersText}
+              onChange={(event) => {
+                setAnswersText(event.target.value);
+                setStatus("Manual answers ready for analysis.");
+                setError("");
+              }}
+              placeholder={`I will stay calm, help the team, and solve the issue quickly.\nI will inform the concerned person and take safe action immediately.`}
             />
-            <p className="mt-3 text-xs leading-6 text-slate-400">OCR may make mistakes. Please review before analysis.</p>
 
-            {isOcrRunning ? (
-              <div className="mt-4 space-y-3">
-                <div className="flex items-center justify-between text-xs uppercase tracking-[0.18em] text-blue-200">
-                  <span>OCR Loading</span>
-                  <span>{ocrProgress}%</span>
-                </div>
-                <div className="h-2 overflow-hidden rounded-full bg-white/10">
-                  <div className="h-full rounded-full bg-blue-500 transition-all" style={{ width: `${ocrProgress}%` }} />
-                </div>
-                <p className="text-sm text-slate-300">Processing `{ocrFileName}` locally in your browser.</p>
-              </div>
-            ) : null}
-          </div>
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <button type="button" className="secondary-button" onClick={importLatestWat}>
+                Import Latest WAT Result
+              </button>
+              <button type="button" className="primary-button" onClick={analyze}>
+                Analyze
+              </button>
+              <button type="button" className="secondary-button" onClick={analyzeWithAi} disabled={isAiRunning || remainingAiUses <= 0}>
+                {isAiRunning ? "Running AI..." : "AI Deep Analysis"}
+              </button>
+            </div>
 
-          <textarea
-            id="answers"
-            className="soft-input mt-4 min-h-[360px] resize-y"
-            value={answersText}
-            onChange={(event) => {
-              setAnswersText(event.target.value);
-              setStatus("Manual answers ready for analysis.");
-              setError("");
-            }}
-            placeholder={`I will stay calm, help the team, and solve the issue quickly.\nI will inform the concerned person and take safe action immediately.`}
-          />
-
-          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <button type="button" className="secondary-button" onClick={importLatestWat}>
-              Import Latest WAT Result
-            </button>
-            <button type="button" className="primary-button" onClick={analyze}>
-              Analyze
-            </button>
-            <button type="button" className="secondary-button" onClick={analyzeWithAi} disabled={isAiRunning || remainingAiUses <= 0}>
-              {isAiRunning ? "Running AI..." : "AI Deep Analysis"}
-            </button>
-          </div>
-
-          <p className="mt-4 text-sm text-slate-400">Remaining free AI uses today: {remainingAiUses}</p>
-          {remainingAiUses <= 0 ? <p className="mt-2 text-sm text-amber-300">Daily AI limit reached. Rule-based analysis only.</p> : null}
-
-          {error ? <p className="mt-4 text-sm text-rose-300">{error}</p> : <p className="mt-4 text-sm text-slate-400">{status}</p>}
-        </div>
-
-        <div className="space-y-4">
-          <div className="glass-panel p-6">
-            <p className="section-kicker">Analyzer Notes</p>
-            <div className="mt-4 space-y-3 text-sm leading-6 text-slate-300">
-              <p>Scoring traits: Leadership, Confidence, Responsibility, Decision Making, Positivity, and Practicality.</p>
-              <p>Strong signals include help, solve, lead, inform, organize, calm, protect, support, team, action, quickly, and safely.</p>
-              <p>Strong action-led answers score better than passive or fearful responses.</p>
-              <p>OCR runs client-side only. Review extracted text carefully before analyzing it.</p>
-              <p>AI deep analysis is optional and limited to 5 uses per day on this device.</p>
-              <p>This is practice feedback, not official ISSB evaluation.</p>
+            <div className="space-y-2">
+              {error ? <p className="text-sm text-rose-300">{error}</p> : <p className="text-sm text-slate-400">{status}</p>}
+              {remainingAiUses <= 0 ? <p className="text-sm text-amber-300">Daily AI limit reached. Rule-based analysis only.</p> : null}
             </div>
           </div>
+        </div>
 
-          <div className="glass-panel p-6">
-            <p className="section-kicker">Ready To Analyze</p>
-            <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
-              <div className="metric-card">
-                <p className="text-slate-400">Answers</p>
-                <p className="mt-2 text-2xl font-semibold text-white">{parsedAnswers.length}</p>
-              </div>
-              <div className="metric-card">
-                <p className="text-slate-400">Mode</p>
-                <p className="mt-2 text-lg font-semibold text-white">Free Local</p>
-              </div>
+        <div className="glass-panel p-6 sm:p-8 lg:sticky lg:top-24">
+          <p className="section-kicker">Analyzer Guide</p>
+          <div className="mt-4 space-y-6">
+            <div>
+              <p className="text-sm font-semibold text-white">Ready</p>
+              <p className="mt-2 text-sm leading-6 text-slate-300">{parsedAnswers.length} answers detected. Rule-based analysis is instant. AI deep analysis is optional.</p>
+            </div>
+
+            <div>
+              <p className="text-sm font-semibold text-white">AI Uses Today</p>
+              <p className="mt-2 text-3xl font-semibold text-white">{remainingAiUses}</p>
+            </div>
+
+            <div className="space-y-3 text-sm leading-6 text-slate-300">
+              <p>Strong signals include help, solve, lead, inform, organize, calm, protect, support, team, action, quickly, and safely.</p>
+              <p>OCR runs client-side only. Review extracted text before analysis.</p>
+              <p>This is practice feedback, not official ISSB evaluation.</p>
             </div>
           </div>
         </div>
