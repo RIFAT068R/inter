@@ -16,6 +16,9 @@ export default function AnalyzerPage() {
   const [answersText, setAnswersText] = useState("");
   const [status, setStatus] = useState("Paste answers manually or import the latest WAT session.");
   const [error, setError] = useState("");
+  const [ocrProgress, setOcrProgress] = useState(0);
+  const [isOcrRunning, setIsOcrRunning] = useState(false);
+  const [ocrFileName, setOcrFileName] = useState("");
 
   useEffect(() => {
     const storedInput = getAnalyzerInput();
@@ -60,6 +63,53 @@ export default function AnalyzerPage() {
     setAnswersText(importedAnswers.map((entry) => entry.answer).join("\n"));
     setStatus("Latest WAT answers loaded from localStorage.");
     setError("");
+  };
+
+  const extractTextFromImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    setIsOcrRunning(true);
+    setOcrProgress(0);
+    setOcrFileName(file.name);
+    setError("");
+    setStatus("Starting OCR...");
+
+    try {
+      const Tesseract = await import("tesseract.js");
+      const result = await Tesseract.recognize(file, "eng", {
+        logger: (message) => {
+          if (typeof message.progress === "number") {
+            setOcrProgress(Math.round(message.progress * 100));
+          }
+
+          if (typeof message.status === "string") {
+            const readableStatus = message.status.charAt(0).toUpperCase() + message.status.slice(1);
+            setStatus(`${readableStatus} ${typeof message.progress === "number" ? `${Math.round(message.progress * 100)}%` : ""}`.trim());
+          }
+        },
+      });
+
+      const extractedText = result.data.text.trim();
+
+      if (!extractedText) {
+        setError("OCR could not extract readable text from that image.");
+        setStatus("OCR finished with no readable text.");
+        return;
+      }
+
+      setAnswersText(extractedText);
+      setStatus("OCR complete. Review and edit the extracted text before analysis.");
+    } catch {
+      setError("OCR failed to process that image in the browser.");
+      setStatus("OCR failed.");
+    } finally {
+      setIsOcrRunning(false);
+      event.target.value = "";
+    }
   };
 
   const analyze = () => {
@@ -113,6 +163,35 @@ export default function AnalyzerPage() {
             Answers Input
           </label>
           <p className="mt-2 text-sm text-slate-300">Paste one answer per line. Keep each line as a separate response for cleaner scoring.</p>
+          <div className="mt-4 rounded-3xl border border-white/10 bg-black/20 p-4">
+            <label htmlFor="ocr-upload" className="block text-sm font-medium text-white">
+              Upload Answer Image
+            </label>
+            <p className="mt-2 text-sm text-slate-300">Upload a handwritten or printed answer sheet image to extract text in your browser.</p>
+            <input
+              id="ocr-upload"
+              type="file"
+              accept="image/*"
+              className="soft-input mt-4 file:mr-4 file:rounded-xl file:border-0 file:bg-blue-500 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white"
+              onChange={extractTextFromImage}
+              disabled={isOcrRunning}
+            />
+            <p className="mt-3 text-xs leading-6 text-slate-400">OCR may make mistakes. Please review before analysis.</p>
+
+            {isOcrRunning ? (
+              <div className="mt-4 space-y-3">
+                <div className="flex items-center justify-between text-xs uppercase tracking-[0.18em] text-blue-200">
+                  <span>OCR Loading</span>
+                  <span>{ocrProgress}%</span>
+                </div>
+                <div className="h-2 overflow-hidden rounded-full bg-white/10">
+                  <div className="h-full rounded-full bg-blue-500 transition-all" style={{ width: `${ocrProgress}%` }} />
+                </div>
+                <p className="text-sm text-slate-300">Processing `{ocrFileName}` locally in your browser.</p>
+              </div>
+            ) : null}
+          </div>
+
           <textarea
             id="answers"
             className="soft-input mt-4 min-h-[360px] resize-y"
@@ -144,6 +223,7 @@ export default function AnalyzerPage() {
               <p>Scoring traits: Leadership, Confidence, Responsibility, Decision Making, Positivity, and Practicality.</p>
               <p>Strong signals include help, solve, lead, inform, organize, calm, protect, support, team, action, quickly, and safely.</p>
               <p>Strong action-led answers score better than passive or fearful responses.</p>
+              <p>OCR runs client-side only. Review extracted text carefully before analyzing it.</p>
               <p>This is practice feedback, not official ISSB evaluation.</p>
             </div>
           </div>
