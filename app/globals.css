@@ -40,13 +40,30 @@ html.light body {
   }
 }
 
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @layer components {
   .glass-panel {
-    @apply rounded-2xl transition duration-300;
+    @apply rounded-2xl transition-all duration-300 ease-out;
     border: 1px solid rgba(206, 241, 123, 0.15);
     background-color: rgba(8, 71, 52, 0.45);
     backdrop-filter: blur(20px);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 10px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .glass-panel:hover {
+    transform: translateY(-2px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 14px 44px rgba(0, 0, 0, 0.42), 0 0 18px rgba(206, 241, 123, 0.08);
   }
 
   html.light .glass-panel {
@@ -82,6 +99,7 @@ html.light body {
     background-color: rgba(8, 71, 52, 0.42);
     backdrop-filter: blur(14px);
     box-shadow: 0 0 18px rgba(206, 241, 123, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    transition: all 300ms ease-out;
   }
 
   .theme-toggle-button:hover {
@@ -90,17 +108,18 @@ html.light body {
   }
 
   .primary-button {
-    @apply inline-flex items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold text-slate-950 transition focus:outline-none focus:ring-2;
+    @apply inline-flex items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold text-slate-950 transition-all duration-300 ease-out focus:outline-none focus:ring-2;
     background-color: #cef17b;
     --tw-ring-color: rgba(206, 241, 123, 0.4);
   }
 
   .primary-button:hover {
     background-color: #d9f58f;
+    filter: brightness(1.08);
   }
 
   .secondary-button {
-    @apply inline-flex items-center justify-center rounded-xl border border-white/10 px-5 py-2.5 text-sm font-medium text-white transition focus:outline-none focus:ring-2;
+    @apply inline-flex items-center justify-center rounded-xl border border-white/10 px-5 py-2.5 text-sm font-medium text-white transition-all duration-300 ease-out focus:outline-none focus:ring-2;
     background-color: rgba(8, 71, 52, 0.4);
     backdrop-filter: blur(14px);
     --tw-ring-color: rgba(206, 241, 123, 0.28);
@@ -123,7 +142,7 @@ html.light body {
   }
 
   .soft-input {
-    @apply w-full rounded-xl border border-white/10 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-400 focus:ring-2;
+    @apply w-full rounded-xl border border-white/10 px-4 py-3 text-sm text-white outline-none transition-all duration-300 ease-out placeholder:text-slate-400 focus:ring-2;
     background-color: rgba(8, 71, 52, 0.38);
     backdrop-filter: blur(14px);
     --tw-ring-color: rgba(206, 241, 123, 0.18);
@@ -145,7 +164,7 @@ html.light body {
   }
 
   .subtle-panel {
-    @apply rounded-2xl p-6 transition duration-300;
+    @apply rounded-2xl p-6 transition-all duration-300 ease-out;
     background-color: rgba(8, 71, 52, 0.18);
   }
 
@@ -155,7 +174,7 @@ html.light body {
   }
 
   .metric-card {
-    @apply rounded-2xl p-6 transition duration-300;
+    @apply rounded-2xl p-6 transition-all duration-300 ease-out;
     background-color: rgba(8, 71, 52, 0.18);
   }
 
@@ -165,8 +184,12 @@ html.light body {
   }
 
   .countdown-chip {
-    @apply rounded-2xl px-5 py-4 text-center transition duration-300;
+    @apply rounded-2xl px-5 py-4 text-center transition-all duration-300 ease-out;
     background-color: rgba(206, 241, 123, 0.12);
+  }
+
+  .page-enter {
+    animation: page-enter 420ms ease-out both;
   }
 
   html.light .countdown-chip {
