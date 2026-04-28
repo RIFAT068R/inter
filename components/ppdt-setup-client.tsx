@@ -46,7 +46,7 @@ export function PpdtSetupClient() {
   };
 
   return (
-    <div className="space-y-14">
+    <div className="space-y-16">
       <PageHeader eyebrow="PPDT Setup" title="Build your Picture Perception and Description Test" subtitle="Upload one image, set viewing and writing timers, and start a two-phase PPDT session with real exam-style pressure." />
 
       <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">

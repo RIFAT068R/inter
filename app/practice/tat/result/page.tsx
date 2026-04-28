@@ -55,7 +55,7 @@ export default function TatResultPage() {
   };
 
   return (
-    <div className="space-y-14">
+    <div className="space-y-16">
       <PageHeader eyebrow="TAT Result" title="Story review" subtitle="Review each image and story, then send your responses to the analyzer for short practical feedback." />
 
       <section className="grid gap-4 md:grid-cols-3">

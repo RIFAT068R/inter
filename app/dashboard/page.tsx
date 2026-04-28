@@ -37,7 +37,7 @@ const modules = [
 
 export default function DashboardPage() {
   return (
-    <div className="space-y-14">
+    <div className="space-y-16">
       <PageHeader eyebrow="Dashboard" title="Your training command center" subtitle="Move into the active module, keep your preparation structured, and expand into more ISSB drills as they go live." />
 
       <section className="glass-panel p-6 sm:p-8">

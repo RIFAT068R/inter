@@ -45,7 +45,7 @@ export function SrtSetupClient() {
   };
 
   return (
-    <div className="space-y-14">
+    <div className="space-y-16">
       <PageHeader eyebrow="SRT Setup" title="Build your Situation Response Test" subtitle="Paste one situation per line, set the timer, and launch a realistic SRT session." />
 
       <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">

@@ -72,7 +72,7 @@ export default function SrtPracticePage() {
   const progressPercent = ((session.currentIndex + 1) / session.situations.length) * 100;
 
   return (
-    <div className="space-y-14">
+    <div className="space-y-16">
       <PageHeader eyebrow="SRT Practice" title="Respond with calm action" subtitle="Read each situation clearly, decide quickly, and keep your answer practical under time pressure." />
 
       <section className="glass-panel p-6 sm:p-8">

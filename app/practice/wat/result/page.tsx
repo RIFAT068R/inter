@@ -50,7 +50,7 @@ export default function WatResultPage() {
   };
 
   return (
-    <div className="space-y-14">
+    <div className="space-y-16">
       <PageHeader eyebrow="WAT Result" title="Session review" subtitle="Inspect your completion pattern, answer depth, and quick local feedback after each timed run." />
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">

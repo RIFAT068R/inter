@@ -78,7 +78,7 @@ export default function PpdtPracticePage() {
   }
 
   return (
-    <div className="space-y-14">
+    <div className="space-y-16">
       <PageHeader eyebrow="PPDT Practice" title={phaseMeta.title} subtitle={phaseMeta.subtitle} />
 
       <section className="glass-panel p-6 sm:p-8 transition-all duration-300">

@@ -72,7 +72,7 @@ export default function WatPracticePage() {
   const progressPercent = ((session.currentIndex + 1) / session.words.length) * 100;
 
   return (
-    <div className="space-y-14">
+    <div className="space-y-16">
       <PageHeader eyebrow="WAT Practice" title="Stay sharp and keep moving" subtitle="Answer instinctively before the timer ends. The next word appears automatically when time runs out." />
 
       <section className="glass-panel p-6 sm:p-8">

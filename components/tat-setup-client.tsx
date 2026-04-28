@@ -56,7 +56,7 @@ export function TatSetupClient() {
   };
 
   return (
-    <div className="space-y-14">
+    <div className="space-y-16">
       <PageHeader eyebrow="TAT Setup" title="Build your Thematic Apperception Test" subtitle="Upload multiple images, preview them, set the writing timer, and start a browser-only TAT session." />
 
       <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
