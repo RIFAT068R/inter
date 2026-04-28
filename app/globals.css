@@ -179,6 +179,22 @@ html.light body {
     @apply text-[11px] font-medium uppercase tracking-[0.24em] text-slate-400;
   }
 
+  .type-heading-xl {
+    @apply text-5xl font-bold tracking-tight;
+  }
+
+  .type-heading-l {
+    @apply text-3xl font-semibold;
+  }
+
+  .type-body {
+    @apply text-base text-nl-textMuted;
+  }
+
+  .type-label {
+    @apply text-nl-accent text-xs uppercase tracking-widest;
+  }
+
   .data-table {
     @apply min-w-full text-sm;
   }

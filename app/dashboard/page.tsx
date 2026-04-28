@@ -43,9 +43,9 @@ export default function DashboardPage() {
       <section className="glass-panel p-6 sm:p-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="section-kicker">Welcome</p>
-            <h2 className="mt-3 text-3xl font-semibold text-white">Focused practice beats random repetition.</h2>
-            <p className="mt-3 max-w-xl text-sm leading-6 text-slate-300">
+            <p className="type-label">Welcome</p>
+            <h2 className="type-heading-l mt-3 text-white">Focused practice beats random repetition.</h2>
+            <p className="type-body mt-3 max-w-xl leading-6">
               Start with WAT, SRT, TAT, or PPDT, build response speed, then run your answers through the free local analyzer for practical feedback.
             </p>
           </div>

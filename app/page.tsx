@@ -52,12 +52,12 @@ export default function HomePage() {
 
         <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div className="space-y-8 pt-4">
-            <p className="text-lime-acc text-[11px] font-medium uppercase tracking-[0.36em]">NextLeader</p>
-            <h1 className="max-w-3xl text-4xl font-bold leading-[1.02] text-white sm:text-5xl lg:text-[5.25rem]">
+            <p className="type-label">NextLeader</p>
+            <h1 className="type-heading-xl max-w-3xl leading-[1.02] text-white lg:text-[5.25rem]">
               <span className="block">Train Like the</span>
               <span className="text-lime-acc block">Next Leader</span>
             </h1>
-            <p className="max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
+            <p className="type-body max-w-xl leading-8 sm:text-lg">
               Practice ISSB psychological tests with real timers, clear tracking, and focused feedback.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -82,9 +82,9 @@ export default function HomePage() {
                   <path d="M12 5v2M19 12h-2" />
                 </svg>
               </div>
-              <p className="text-lime-acc text-[11px] font-medium uppercase tracking-[0.28em]">Mission Profile</p>
+              <p className="type-label">Mission Profile</p>
             </div>
-            <h2 className="mt-6 text-2xl font-semibold leading-tight text-white sm:text-[2rem]">Train with structure, not guesswork.</h2>
+            <h2 className="type-heading-l mt-6 leading-tight text-white sm:text-[2rem]">Train with structure, not guesswork.</h2>
             <div className="mt-8 space-y-6">
               {[
                 ["Real timers", "Stay sharp under real exam-style countdown pressure."],
