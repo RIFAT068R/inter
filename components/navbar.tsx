@@ -33,8 +33,8 @@ export function Navbar() {
                 href={item.href}
                 className={
                   isActive
-                    ? "relative text-sm font-medium text-white after:absolute after:-bottom-[11px] after:left-1/2 after:h-[2px] after:w-10 after:-translate-x-1/2 after:rounded-full after:bg-nl-accent after:shadow-[0_0_18px_rgba(206,241,123,0.9)]"
-                    : "text-sm font-medium text-nl-textMuted transition duration-300 hover:text-nl-accent"
+                    ? "relative text-sm font-medium text-white transition-all duration-300 ease-out before:absolute before:-bottom-[3px] before:left-1/2 before:h-1 before:w-1 before:-translate-x-1/2 before:rounded-full before:bg-nl-accent before:shadow-[0_0_12px_rgba(206,241,123,0.9)] after:absolute after:-bottom-[11px] after:left-1/2 after:h-[2px] after:w-10 after:-translate-x-1/2 after:rounded-full after:bg-nl-accent after:shadow-[0_0_18px_rgba(206,241,123,0.9)]"
+                    : "text-sm font-medium text-nl-textMuted transition-all duration-300 ease-out hover:text-nl-accent"
                 }
               >
                 {item.label}
