@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { PageHeader } from "@/components/page-header";
+import { Button } from "@/components/button";
+import { Textarea } from "@/components/textarea";
 import { useCountdown } from "@/lib/use-countdown";
 import { completeSrtSession, getCurrentSrtSession, saveSrtSessionAnswer } from "@/lib/storage";
 
@@ -70,56 +71,64 @@ export default function SrtPracticePage() {
   }
 
   const progressPercent = ((session.currentIndex + 1) / session.situations.length) * 100;
+  const timerState = getTimerState(secondsLeft, session.timerSeconds);
+  const actionLabel = session.currentIndex + 1 === session.situations.length ? "Submit" : "Next";
 
   return (
-    <div className="space-y-16">
-      <PageHeader eyebrow="SRT Practice" title="Respond with calm action" subtitle="Read each situation clearly, decide quickly, and keep your answer practical under time pressure." />
-
-      <section className="glass-panel p-6 sm:p-8">
-        <div className="flex flex-col gap-6">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Progress</p>
-              <h2 className="mt-2 text-2xl font-semibold text-white">
-                Situation {session.currentIndex + 1} of {session.situations.length}
-              </h2>
-            </div>
-            <div className="countdown-chip">
-              <p className="text-lime-acc text-xs uppercase tracking-[0.24em]">Countdown</p>
-              <p className="mt-2 text-4xl font-semibold text-white">{secondsLeft}s</p>
-            </div>
-          </div>
-
-          <div className="h-2 overflow-hidden rounded-full bg-white/10">
-            <div className="h-full rounded-full bg-[#CEF17B] transition-all" style={{ width: `${progressPercent}%` }} />
-          </div>
-
-          <div className="subtle-panel sm:p-8">
-            <p className="section-kicker">Situation</p>
-            <p className="mt-4 text-xl leading-8 text-white sm:text-2xl">{currentSituation}</p>
-          </div>
-
+    <div className="focus-shell">
+      <div className="focus-inner">
+        <div className="focus-topbar">
           <div>
-            <label htmlFor="response" className="text-sm font-medium text-white">
-              Your Response
-            </label>
-            <textarea
-              id="response"
-              autoFocus
-              className="soft-input mt-3 min-h-[180px] resize-y"
-              placeholder="Write your response here"
-              value={response}
-              onChange={(event) => setResponse(event.target.value)}
-            />
+            <p className="focus-progress">Situation {session.currentIndex + 1} of {session.situations.length}</p>
+            <div className="mt-4 h-2 w-40 overflow-hidden rounded-full bg-white/10">
+              <div className="h-full rounded-full bg-[#CEF17B] transition-all duration-300 ease-out" style={{ width: `${progressPercent}%` }} />
+            </div>
           </div>
-
-          <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
-            <button type="button" className="primary-button" onClick={() => goNext()}>
-              Next
-            </button>
+          <div className={`focus-timer ${timerState.className}`}>
+            <p className="text-xs uppercase tracking-[0.24em] text-white/70">Countdown</p>
+            <p className="mt-2 text-5xl font-semibold">{secondsLeft}s</p>
           </div>
         </div>
-      </section>
+
+        <div className="focus-surface">
+          <div className="focus-stage">
+            <p className="max-w-4xl text-2xl leading-9 text-white sm:text-3xl sm:leading-[3rem]">{currentSituation}</p>
+            <div className="w-full max-w-3xl">
+              <Textarea
+                id="response"
+                autoFocus
+                className="min-h-[220px] text-base"
+                placeholder="Write your response"
+                value={response}
+                onChange={(event) => setResponse(event.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="focus-actions">
+          <Button variant="ghost" onClick={() => router.push("/practice/srt")}>Exit</Button>
+          <div className="focus-actions-end">
+            <Button onClick={() => goNext()}>{actionLabel}</Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
+}
+
+function getTimerState(secondsLeft: number, duration: number) {
+  if (secondsLeft <= 3) {
+    return { className: "focus-timer-danger focus-timer-pulse" };
+  }
+
+  if (secondsLeft <= 5) {
+    return { className: "focus-timer-warn focus-timer-pulse" };
+  }
+
+  if (secondsLeft <= Math.max(8, Math.ceil(duration * 0.35))) {
+    return { className: "focus-timer-warn" };
+  }
+
+  return { className: "focus-timer-safe" };
 }

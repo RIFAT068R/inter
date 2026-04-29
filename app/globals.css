@@ -52,6 +52,19 @@ html.light body {
   }
 }
 
+@keyframes pressure-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(239, 68, 68, 0);
+  }
+
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 26px rgba(239, 68, 68, 0.22);
+  }
+}
+
 @layer components {
   .glass-panel {
     @apply rounded-2xl transition-all duration-300 ease-out;
@@ -199,6 +212,67 @@ html.light body {
 
   .page-enter {
     animation: page-enter 420ms ease-out both;
+  }
+
+  .focus-shell {
+    @apply min-h-screen px-6 py-8 sm:px-8 sm:py-10;
+    background:
+      radial-gradient(circle at 70% 28%, rgba(206, 241, 123, 0.12), transparent 34%),
+      radial-gradient(circle at 24% 82%, rgba(205, 237, 179, 0.08), transparent 28%),
+      linear-gradient(180deg, rgba(4, 27, 20, 1), rgba(3, 20, 15, 1));
+  }
+
+  .focus-inner {
+    @apply mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-5xl flex-col justify-center gap-8;
+  }
+
+  .focus-topbar {
+    @apply flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between;
+  }
+
+  .focus-progress {
+    @apply text-sm uppercase tracking-[0.24em] text-slate-400;
+  }
+
+  .focus-surface {
+    @apply glass-panel p-6 sm:p-8;
+  }
+
+  .focus-stage {
+    @apply flex flex-1 flex-col items-center justify-center gap-8 text-center;
+    min-height: 340px;
+  }
+
+  .focus-timer {
+    @apply rounded-2xl px-6 py-5 text-center text-white transition-all duration-300 ease-out;
+    min-width: 150px;
+  }
+
+  .focus-timer-safe {
+    background-color: rgba(16, 185, 129, 0.16);
+    box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.18);
+  }
+
+  .focus-timer-warn {
+    background-color: rgba(206, 241, 123, 0.16);
+    box-shadow: 0 0 0 1px rgba(206, 241, 123, 0.18), 0 0 20px rgba(206, 241, 123, 0.12);
+  }
+
+  .focus-timer-danger {
+    background-color: rgba(239, 68, 68, 0.16);
+    box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.22), 0 0 24px rgba(239, 68, 68, 0.18);
+  }
+
+  .focus-timer-pulse {
+    animation: pressure-pulse 0.9s ease-out infinite;
+  }
+
+  .focus-actions {
+    @apply flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between;
+  }
+
+  .focus-actions-end {
+    @apply flex flex-col gap-3 sm:flex-row;
   }
 
   html.light .countdown-chip {

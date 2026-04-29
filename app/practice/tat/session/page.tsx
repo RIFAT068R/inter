@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { PageHeader } from "@/components/page-header";
+import { Button } from "@/components/button";
+import { Textarea } from "@/components/textarea";
 import { useCountdown } from "@/lib/use-countdown";
 import { completeTatSession, getCurrentTatSession, saveTatSessionAnswer } from "@/lib/storage";
 
@@ -70,55 +71,66 @@ export default function TatPracticePage() {
   }
 
   const progressPercent = ((session.currentIndex + 1) / session.images.length) * 100;
+  const timerState = getTimerState(secondsLeft, session.timerSeconds);
+  const actionLabel = session.currentIndex + 1 === session.images.length ? "Submit" : "Next";
 
   return (
-    <div className="space-y-16">
-      <PageHeader eyebrow="TAT Practice" title="Observe, infer, and write" subtitle="Use the image as a prompt, build a coherent story quickly, and move with the timer." />
-
-      <section className="glass-panel p-6 sm:p-8">
-        <div className="flex flex-col gap-6">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Progress</p>
-              <h2 className="mt-2 text-2xl font-semibold text-white">
-                Image {session.currentIndex + 1} of {session.images.length}
-              </h2>
-            </div>
-            <div className="countdown-chip">
-              <p className="text-lime-acc text-xs uppercase tracking-[0.24em]">Countdown</p>
-              <p className="mt-2 text-4xl font-semibold text-white">{secondsLeft}s</p>
-            </div>
-          </div>
-
-          <div className="h-2 overflow-hidden rounded-full bg-white/10">
-            <div className="h-full rounded-full bg-[#CEF17B] transition-all" style={{ width: `${progressPercent}%` }} />
-          </div>
-
-          <div className="subtle-panel overflow-hidden p-4">
-            <img src={currentImage.url} alt={currentImage.name} className="h-[320px] w-full rounded-[1.5rem] object-cover sm:h-[420px]" />
-          </div>
-
+    <div className="focus-shell">
+      <div className="focus-inner">
+        <div className="focus-topbar">
           <div>
-            <label htmlFor="story" className="text-sm font-medium text-white">
-              Your Story
-            </label>
-            <textarea
-              id="story"
-              autoFocus
-              className="soft-input mt-3 min-h-[220px] resize-y"
-              placeholder="Write the story suggested by this image"
-              value={story}
-              onChange={(event) => setStory(event.target.value)}
-            />
+            <p className="focus-progress">Image {session.currentIndex + 1} of {session.images.length}</p>
+            <div className="mt-4 h-2 w-40 overflow-hidden rounded-full bg-white/10">
+              <div className="h-full rounded-full bg-[#CEF17B] transition-all duration-300 ease-out" style={{ width: `${progressPercent}%` }} />
+            </div>
           </div>
-
-          <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
-            <button type="button" className="primary-button" onClick={() => goNext()}>
-              Next
-            </button>
+          <div className={`focus-timer ${timerState.className}`}>
+            <p className="text-xs uppercase tracking-[0.24em] text-white/70">Countdown</p>
+            <p className="mt-2 text-5xl font-semibold">{secondsLeft}s</p>
           </div>
         </div>
-      </section>
+
+        <div className="focus-surface">
+          <div className="focus-stage">
+            <div className="w-full max-w-4xl overflow-hidden rounded-2xl">
+              <img src={currentImage.url} alt={currentImage.name} className="h-[360px] w-full object-cover sm:h-[460px]" />
+            </div>
+            <div className="w-full max-w-3xl">
+              <Textarea
+                id="story"
+                autoFocus
+                className="min-h-[220px] text-base"
+                placeholder="Write the story suggested by this image"
+                value={story}
+                onChange={(event) => setStory(event.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="focus-actions">
+          <Button variant="ghost" onClick={() => router.push("/practice/tat")}>Exit</Button>
+          <div className="focus-actions-end">
+            <Button onClick={() => goNext()}>{actionLabel}</Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
+}
+
+function getTimerState(secondsLeft: number, duration: number) {
+  if (secondsLeft <= 3) {
+    return { className: "focus-timer-danger focus-timer-pulse" };
+  }
+
+  if (secondsLeft <= 5) {
+    return { className: "focus-timer-warn focus-timer-pulse" };
+  }
+
+  if (secondsLeft <= Math.max(20, Math.ceil(duration * 0.25))) {
+    return { className: "focus-timer-warn" };
+  }
+
+  return { className: "focus-timer-safe" };
 }

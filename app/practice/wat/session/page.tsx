@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { PageHeader } from "@/components/page-header";
+import { Button } from "@/components/button";
+import { Input } from "@/components/input";
 import { useCountdown } from "@/lib/use-countdown";
 import { completeWatSession, getCurrentWatSession, saveWatSessionAnswer } from "@/lib/storage";
 
@@ -70,61 +71,70 @@ export default function WatPracticePage() {
   }
 
   const progressPercent = ((session.currentIndex + 1) / session.words.length) * 100;
+  const timerState = getTimerState(secondsLeft, session.timerSeconds);
+  const actionLabel = session.currentIndex + 1 === session.words.length ? "Submit" : "Next";
 
   return (
-    <div className="space-y-16">
-      <PageHeader eyebrow="WAT Practice" title="Stay sharp and keep moving" subtitle="Answer instinctively before the timer ends. The next word appears automatically when time runs out." />
-
-      <section className="glass-panel p-6 sm:p-8">
-        <div className="flex flex-col gap-6">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <p className="text-sm uppercase tracking-[0.24em] text-slate-400">Progress</p>
-              <h2 className="mt-2 text-2xl font-semibold text-white">
-                Word {session.currentIndex + 1} of {session.words.length}
-              </h2>
-            </div>
-            <div className="countdown-chip">
-              <p className="text-lime-acc text-xs uppercase tracking-[0.24em]">Countdown</p>
-              <p className="mt-2 text-4xl font-semibold text-white">{secondsLeft}s</p>
-            </div>
-          </div>
-
-          <div className="h-2 overflow-hidden rounded-full bg-white/10">
-            <div className="h-full rounded-full bg-[#CEF17B] transition-all" style={{ width: `${progressPercent}%` }} />
-          </div>
-
-          <div className="subtle-panel flex min-h-[220px] items-center justify-center text-center">
-            <p className="text-4xl font-semibold uppercase tracking-[0.18em] text-white sm:text-5xl">{currentWord}</p>
-          </div>
-
+    <div className="focus-shell">
+      <div className="focus-inner">
+        <div className="focus-topbar">
           <div>
-            <label htmlFor="answer" className="text-sm font-medium text-white">
-              Your Response
-            </label>
-            <input
-              id="answer"
-              autoFocus
-              className="soft-input mt-3"
-              placeholder="Type your response here"
-              value={answer}
-              onChange={(event) => setAnswer(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  event.preventDefault();
-                  goNext();
-                }
-              }}
-            />
+            <p className="focus-progress">Word {session.currentIndex + 1} of {session.words.length}</p>
+            <div className="mt-4 h-2 w-40 overflow-hidden rounded-full bg-white/10">
+              <div className="h-full rounded-full bg-[#CEF17B] transition-all duration-300 ease-out" style={{ width: `${progressPercent}%` }} />
+            </div>
           </div>
-
-          <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
-            <button type="button" className="primary-button" onClick={() => goNext()}>
-              Next
-            </button>
+          <div className={`focus-timer ${timerState.className}`}>
+            <p className="text-xs uppercase tracking-[0.24em] text-white/70">Countdown</p>
+            <p className="mt-2 text-5xl font-semibold">{secondsLeft}s</p>
           </div>
         </div>
-      </section>
+
+        <div className="focus-surface">
+          <div className="focus-stage">
+            <p className="text-5xl font-semibold uppercase tracking-[0.18em] text-white sm:text-6xl">{currentWord}</p>
+            <div className="w-full max-w-2xl">
+              <Input
+                id="answer"
+                autoFocus
+                className="h-14 text-center text-lg"
+                placeholder="Type your response"
+                value={answer}
+                onChange={(event) => setAnswer(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault();
+                    goNext();
+                  }
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="focus-actions">
+          <Button variant="ghost" onClick={() => router.push("/practice/wat")}>Exit</Button>
+          <div className="focus-actions-end">
+            <Button onClick={() => goNext()}>{actionLabel}</Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
+}
+
+function getTimerState(secondsLeft: number, duration: number) {
+  if (secondsLeft <= 3) {
+    return { className: "focus-timer-danger focus-timer-pulse" };
+  }
+
+  if (secondsLeft <= 5) {
+    return { className: "focus-timer-warn focus-timer-pulse" };
+  }
+
+  if (secondsLeft <= Math.max(6, Math.ceil(duration * 0.35))) {
+    return { className: "focus-timer-warn" };
+  }
+
+  return { className: "focus-timer-safe" };
 }

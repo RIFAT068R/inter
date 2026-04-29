@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { PageHeader } from "@/components/page-header";
+import { Button } from "@/components/button";
+import { Textarea } from "@/components/textarea";
 import { useCountdown } from "@/lib/use-countdown";
 import { completePpdtSession, getCurrentPpdtSession, savePpdtStory } from "@/lib/storage";
 
@@ -77,50 +78,73 @@ export default function PpdtPracticePage() {
     return null;
   }
 
+  const timerState = getTimerState(secondsLeft, currentDuration);
+
   return (
-    <div className="space-y-16">
-      <PageHeader eyebrow="PPDT Practice" title={phaseMeta.title} subtitle={phaseMeta.subtitle} />
-
-      <section className="glass-panel p-6 sm:p-8 transition-all duration-300">
-        <div className="flex flex-col gap-6">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <p className="text-sm uppercase tracking-[0.24em] text-slate-400">{phaseMeta.label}</p>
-              <h2 className="mt-2 text-2xl font-semibold text-white">Picture Perception and Description Test</h2>
-            </div>
-            <div className="countdown-chip">
-              <p className="text-lime-acc text-xs uppercase tracking-[0.24em]">Countdown</p>
-              <p className="mt-2 text-4xl font-semibold text-white">{secondsLeft}s</p>
-            </div>
-          </div>
-
-          {phase === "viewing" ? (
-            <div className="subtle-panel overflow-hidden p-4 transition-all duration-300">
-              <img src={session.image.url} alt={session.image.name} className="h-[340px] w-full rounded-[1.5rem] object-cover sm:h-[460px]" />
-            </div>
-          ) : (
-            <div className="subtle-panel bg-[#CEF17B]/5 transition-all duration-300">
-              <p className="text-lime-acc text-sm uppercase tracking-[0.24em]">Image Hidden</p>
-              <p className="mt-3 text-sm leading-7 text-slate-300">Write from memory now. This phase simulates the real transition from observation to response.</p>
-            </div>
-          )}
-
+    <div className="focus-shell">
+      <div className="focus-inner">
+        <div className="focus-topbar">
           <div>
-            <label htmlFor="ppdt-story" className="text-sm font-medium text-white">
-              Your Story
-            </label>
-            <textarea
-              id="ppdt-story"
-              autoFocus={phase === "writing"}
-              disabled={phase === "viewing"}
-              className="soft-input mt-3 min-h-[240px] resize-y disabled:cursor-not-allowed disabled:opacity-60"
-              placeholder={phase === "viewing" ? "Writing unlocks after the viewing phase ends." : "Write the story from memory here"}
-              value={story}
-              onChange={(event) => setStory(event.target.value)}
-            />
+            <p className="focus-progress">{phaseMeta.label}</p>
+            <h2 className="mt-3 text-3xl font-semibold text-white">Picture Perception and Description Test</h2>
+          </div>
+          <div className={`focus-timer ${timerState.className}`}>
+            <p className="text-xs uppercase tracking-[0.24em] text-white/70">Countdown</p>
+            <p className="mt-2 text-5xl font-semibold">{secondsLeft}s</p>
           </div>
         </div>
-      </section>
+
+        <div className="focus-surface">
+          <div className="focus-stage">
+            {phase === "viewing" ? (
+              <div className="w-full max-w-4xl overflow-hidden rounded-2xl">
+                <img src={session.image.url} alt={session.image.name} className="h-[380px] w-full object-cover sm:h-[500px]" />
+              </div>
+            ) : (
+              <div className="max-w-3xl rounded-2xl bg-[#CEF17B]/5 px-6 py-5 text-center">
+                <p className="text-lime-acc text-sm uppercase tracking-[0.24em]">Image Hidden</p>
+                <p className="mt-3 text-base leading-7 text-slate-300">Write from memory now. This simulates the real shift from observation to response under pressure.</p>
+              </div>
+            )}
+
+            <div className="w-full max-w-3xl">
+              <Textarea
+                id="ppdt-story"
+                autoFocus={phase === "writing"}
+                disabled={phase === "viewing"}
+                className="min-h-[240px] text-base disabled:cursor-not-allowed disabled:opacity-60"
+                placeholder={phase === "viewing" ? "Writing unlocks after the viewing phase ends." : "Write the story from memory here"}
+                value={story}
+                onChange={(event) => setStory(event.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="focus-actions">
+          <Button variant="ghost" onClick={() => router.push("/practice/ppdt")}>Exit</Button>
+          <div className="focus-actions-end">
+            {phase === "viewing" ? <Button variant="secondary" onClick={() => setPhase("writing")}>Next</Button> : null}
+            {phase === "writing" ? <Button onClick={handlePhaseComplete}>Submit</Button> : null}
+          </div>
+        </div>
+      </div>
     </div>
   );
+}
+
+function getTimerState(secondsLeft: number, duration: number) {
+  if (secondsLeft <= 3) {
+    return { className: "focus-timer-danger focus-timer-pulse" };
+  }
+
+  if (secondsLeft <= 5) {
+    return { className: "focus-timer-warn focus-timer-pulse" };
+  }
+
+  if (secondsLeft <= Math.max(8, Math.ceil(duration * 0.25))) {
+    return { className: "focus-timer-warn" };
+  }
+
+  return { className: "focus-timer-safe" };
 }
